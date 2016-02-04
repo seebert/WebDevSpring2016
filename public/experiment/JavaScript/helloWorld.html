@@ -2,9 +2,33 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="imdb.js"></script>
+    <title>IMDB</title>
 </head>
 <body>
+<div class="container">
+    <h1>Search IMDB</h1>
 
+    <input type="text" id="movieTitle" class="form-control" placeholder="Star Wars"/>
+
+    <button id="searchBtn" class="btn btn-primary btn-block">Search</button>
+
+    <h2>Results</h2>
+    <table class="table table-striped" id="results">
+        <thead>
+        <tr>
+            <th>Title</th>
+            <th>Plot</th>
+            <th>Poster</th>
+        </tr>
+        </thead>
+        <tbody id="container">
+        <tr id="template">
+        </tr>
+        </tbody>
+    </table>
+</div>
 </body>
 </html>
