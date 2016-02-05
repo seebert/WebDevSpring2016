@@ -11,7 +11,7 @@
 
         $movieTitle = $("#movieTitle"); //This will pull data from form w/ id movieTitle
         $searchBtn = $("#searchBtn");
-        $searchResults = $("#results tbody");
+        //$searchResults = $("#results tbody");
 
         $searchBtn.click(searchMovie());
     }
@@ -30,7 +30,6 @@
 
     function renderSearchResults(response){
         console.log(response);
-        var totalResults = response.totalResults;
         var movies = response.search;
         for(var n = 0; n <movies.length; n++){
             console.log(movies.Title);
