@@ -1,9 +1,32 @@
 <h1>Search</h1>
 
 <input ng-model="title" class="form-control"/>
-<button ng-click="search()" class="btn btn-primary"/>
+<button ng-click="search(title)" class="btn btn-primary">Search</button>
 
-<div>
+<div class="table-container">
     <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Poster</th>
+                <th>Title</th>
+                <th>ImdbID</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!--For each movie in the response objetc named Search-->
+            <tr ng-repeat="movie in data.Search">
+                <td>
+                    <img ng-src="{{movie.Poster}}" height="100px">
+                </td>
+                <td>
+                    <a href="#/details/{{movie.imdbID}}">
+                        {{movie.Title}}
+                    </a>
+                </td>
+                <td>
+                    {{movie.imdbID}}
+                </td>
+            </tr>
+        </tbody>
     </table>
 </div>

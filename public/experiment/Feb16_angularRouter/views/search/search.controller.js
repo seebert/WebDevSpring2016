@@ -6,12 +6,26 @@
         .module("MovieApp")
         .controller("SearchController", SearchController);
 
-    function SearchController($scope){
+    // Scope object is responsible for interacting with the dom
+    // The http service is used for HTTP requests
+    // THe location service is used for manipulating the URL
+    function SearchController($scope, $http, $location, $routeParams){
         $scope.search = search;
+        var title = $routeParams.title;
+        if(title) {
+            search(title);
+        }
 
-        console.log("Testing1");
         function search(title){
-            console.log("Testing");
+            $location.url("/search/"+title);
+            $http.get("http://www.omdbapi.com/?s=" + title)
+                .success(render);
+        }
+
+        function render(response){
+            $scope.data = response;
         }
     }
+
+
 })();
