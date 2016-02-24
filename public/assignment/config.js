@@ -8,6 +8,14 @@
 
     function Configuration($routeProvider){
         $routeProvider
+            .when("/home",{
+                templateUrl:"views/home/home.view.html",
+                controller:""
+            })
+            .when("/forms",{
+                templateUrl:"views/forms/forms.view.html",
+                controller:""
+            })
             .when("/register", {
                 templateUrl:"/views/users/register.view.html",
                 controller:""
@@ -21,7 +29,7 @@
                 controller:""
             })
             .when("/admin", {
-                templateUrl:"/views/users/admin.view.html",
+                templateUrl:"/views/admin/admin.view.html",
                 controller:""
             })
             .otherwise({
