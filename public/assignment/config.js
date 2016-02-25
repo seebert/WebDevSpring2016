@@ -17,19 +17,19 @@
                 controller:""
             })
             .when("/register", {
-                templateUrl:"/views/users/register.view.html",
+                templateUrl:"views/users/register.view.html",
                 controller:""
             })
             .when("/login",{
-                templateUrl:"/views/users/login.view.html",
+                templateUrl:"views/users/login.view.html",
                 controller:""
             })
             .when("/profile", {
-                templateUrl:"/views/users/profile.view.html",
+                templateUrl:"views/users/profile.view.html",
                 controller:""
             })
             .when("/admin", {
-                templateUrl:"/views/admin/admin.view.html",
+                templateUrl:"views/admin/admin.view.html",
                 controller:""
             })
             .otherwise({

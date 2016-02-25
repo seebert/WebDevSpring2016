@@ -26,6 +26,8 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-route.min.js"></script>
+    <script src="app.js"></script>
+    <script src="config.js"></script>
     <script src="views/admin/admin.controller.js"></script>
     <script src="views/forms/forms.controller.js"></script>
     <script src="views/header/header.controller.js"></script>
@@ -35,23 +37,14 @@
     <script src="views/users/profile.controller.js"></script>
     <script src="views/users/register.controller.js"></script>
     <script src="views/main/main.controller.js"></script>
-    <script src="app.js"></script>
-    <script src="config.js"></script>
+
 </head>
 
-<body  ng-controller="MainController">
+<body ng-controller="MainController">
     <div class="container-fluid">
         <div ng-include src="'views/header/header.view.html'"></div>
         <div ng-include src="'views/sidebar/sidebar.view.html'"></div>
         <div ng-view></div>
-        <!--<div class="row">
-            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                <h1 class="page-header">Welcome!</h1>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec, mattis ac neque. Duis vulputate commodo lectus, ac blandit elit tincidunt id. Sed rhoncus, tortor sed eleifend tristique, tortor mauris molestie elit, et lacinia ipsum quam nec dui. Quisque nec mauris sit amet elit iaculis pretium sit amet quis magna. Aenean velit odio, elementum in tempus ut, vehicula eu diam. Pellentesque rhoncus aliquam mattis. Ut vulputate eros sed felis sodales nec vulputate justo hendrerit. Vivamus varius pretium ligula, a aliquam odio euismod sit amet. Quisque laoreet sem sit amet orci ullamcorper at ultricies metus viverra. Pellentesque arcu mauris, malesuada quis ornare accumsan, blandit sed diam.
-                </p>
-            </div>
-        </div>-->
     </div>
 
 <!-- Bootstrap core JavaScript
