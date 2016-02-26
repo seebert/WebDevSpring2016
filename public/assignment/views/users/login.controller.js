@@ -15,7 +15,7 @@
                 return;
             }
 
-            var user = UserService.findUserByCredentials($scope.user.username, $scope.user.password);
+            var user = UserService.findUserByCredentials($scope.user.username, $scope.user.password, render);
 
             if(!user){
                 $scope.message = "Incorrect username or password";
@@ -24,6 +24,10 @@
 
             UserService.setCurrentUser(user);
             $location.url("/profile");
+        }
+
+        function render(response){
+            return response;
         }
     }
 })();

@@ -29,7 +29,7 @@
             })
             .when("/admin", {
                 templateUrl:"views/admin/admin.view.html",
-                controller:""
+                controller:"AdminController"
             })
             .otherwise({
                 redirectTo : "/home"

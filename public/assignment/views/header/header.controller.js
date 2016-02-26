@@ -6,12 +6,11 @@
         .module("FormBuilderApp")
         .controller("HeaderController", HeaderController);
 
-    function HeaderController($location, $scope) {
+    function HeaderController($location, $scope, UserService) {
         $scope.$location = $location;
         $scope.logout = logout;
 
-        function logout($location, $scope) {
-            $scope.$location = $location;
+        function logout() {
             UserService.setCurrentUser(null);
             $location.url("/home");
         }

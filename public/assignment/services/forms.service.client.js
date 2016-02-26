@@ -30,7 +30,7 @@
                 _id : (new Date).getTime()
             };
             model.forms.push(newForm);
-            return newForm;
+            return callback(newForm);
         }
 
         function findAllFormsForUser(userId, callback){
@@ -41,7 +41,7 @@
                     foundForms.push(model.forms[f]);
                 }
             }
-            return foundForms;
+            return callback(foundForms);
         }
 
         function deleteFormById(formId, callback){
@@ -51,7 +51,7 @@
                 }
             }
 
-            return model.forms;
+            return callback(model.forms);
         }
 
         function updateFormById(formId, newForm, callback){
@@ -62,7 +62,7 @@
                 }
             }
 
-            return null;
+            return callback(null);
         }
     }
 })();
