@@ -9,15 +9,15 @@
     function UserService($rootScope) {
         var users = [];
         users = [
-            {	"_id":123, "firstName":"Alice",            "lastName":"Wonderland", email : "",
+            {	"_id":123, "firstName":"Alice",            "lastName":"Wonderland", "email" : "",
                 "username":"alice",  "password":"alice",   "roles": ["student"]		},
-            {	"_id":234, "firstName":"Bob",              "lastName":"Hope", email : "",
+            {	"_id":234, "firstName":"Bob",              "lastName":"Hope", "email" : "",
                 "username":"bob",    "password":"bob",     "roles": ["admin"]		},
-            {	"_id":345, "firstName":"Charlie",          "lastName":"Brown", email : "",
+            {	"_id":345, "firstName":"Charlie",          "lastName":"Brown", "email" : "",
                 "username":"charlie","password":"charlie", "roles": ["faculty"]		},
-            {	"_id":456, "firstName":"Dan",              "lastName":"Craig", email : "",
+            {	"_id":456, "firstName":"Dan",              "lastName":"Craig", "email" : "",
                 "username":"dan",    "password":"dan",     "roles": ["faculty", "admin"]},
-            {	"_id":567, "firstName":"Edward",           "lastName":"Norton", email : "",
+            {	"_id":567, "firstName":"Edward",           "lastName":"Norton", "email" : "",
                 "username":"ed",     "password":"ed",      "roles": ["student"]		}
         ];
 
