@@ -9,12 +9,11 @@
     function Configuration($routeProvider){
         $routeProvider
             .when("/home",{
-                templateUrl:"views/home/home.view.html",
-                controller:""
+                templateUrl:"views/home/home.view.html"
             })
             .when("/forms",{
                 templateUrl:"views/forms/forms.view.html",
-                controller:""
+                controller:"FormController"
             })
             .when("/register", {
                 templateUrl:"views/users/register.view.html",
@@ -22,7 +21,7 @@
             })
             .when("/login",{
                 templateUrl:"views/users/login.view.html",
-                controller:""
+                controller:"LoginController"
             })
             .when("/profile", {
                 templateUrl:"views/users/profile.view.html",

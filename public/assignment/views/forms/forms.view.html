@@ -1,65 +1,40 @@
-
-
 <div class="container-fluid">
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <h1 class="page-header">Forms: Registration Forms</h1>
-            <ul class="nav nav-tabs">
-                <li role="navigation" class="active">Forms</a></li>
-                <li role="navigation"><a href="fields.view.html">Fields</a></li>
-            </ul>
-                <table class="table table-striped table-bordered">
-                    <thead>
-                    <tr>
-                        <th><span class="caret"></span> Form Name</th>
-                        <th><span class="caret"></span> Action</th>
-                    </tr>
-                    <tr>
-                        <td><input type="text" class="form-control" id="name" placeholder="name"></td>
-                        <td class="edit-links">
-                            <a href="#" class="btn btn-default">
-                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                            </a>
-                            <a href="#" class="btn btn-default">
-                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                            </a>
-                        </td>
-                    </tr>
-                    </thead>
-                    <tbody>
-
-                    <tr>
-                        <td><a href="fields.view.html">Registration Form</a></td>
-                        <td class="edit-links">
-                            <a href="#" class="btn btn-default">
-                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                            </a>
-                            <a href="#" class="btn btn-default">
-                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><a href="fields.view.html">Contact List</a></td>
-                        <td class="edit-links">
-                            <a href="#" class="btn btn-default">
-                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                            </a>
-                            <a href="#" class="btn btn-default">
-                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><a href="fields.view.html">To Do List</a></td>
-                        <td class="edit-links">
-                            <a href="#" class="btn btn-default">
-                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                            </a>
-                            <a href="#" class="btn btn-default">
-                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                            </a>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-        </div>
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <h1 class="page-header">Forms: Registration Forms</h1>
+        <ul class="nav nav-tabs">
+            <li role="navigation" class="active"><a href="#/forms">Forms</a></li>
+            <li role="navigation"><a href="#/fields">Fields</a></li>
+        </ul>
+        <table class="table table-striped table-bordered">
+            <thead>
+            <tr>
+                <th><span class="caret"></span> Form Name</th>
+                <th><span class="caret"></span> Action</th>
+            </tr>
+            <tr>
+                <td><input ng-model="form.title" type="text" class="form-control" id="name" placeholder="name"></td>
+                <td class="edit-links">
+                    <button ng-click="addForm()" class="btn btn-default">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                    </button>
+                    <button ng-click="updateForm()" class="btn btn-default">
+                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                    </button>
+                </td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="f in forms">
+                <td>{{f.title}}</td>
+                <td class="edit-links">
+                    <button ng-click="deleteForm($index)" class="btn btn-default">
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                    </button>
+                    <button ng-click="selectForm($index) " class="btn btn-default">
+                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
