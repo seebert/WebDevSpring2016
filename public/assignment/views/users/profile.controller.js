@@ -17,10 +17,10 @@
         $scope.update = update;
 
         function update(){
-            $scope.user = UserService.updateUser();
+            $scope.user = UserService.updateUser($scope.user._id, $scope.user);
 
             if(!$scope.user){
-                $scope.message = "Unable to update user information";
+                $scope.error = "Unable to update user information";
             }else{
                 $scope.message = "Update successful";
                 UserService.setCurrentUser($scope.user);
