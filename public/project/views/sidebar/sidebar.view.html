@@ -1,0 +1,34 @@
+<div ng-controller="SidebarController" class="col-sm-3 col-md-2 sidebar">
+    <ul class="nav nav-sidebar">
+        <li ng-class="{'active': $location.url()=='/home'}"
+            ng-hide="currentUser">
+            <a href="#/home">
+                Home
+            </a>
+        </li>
+        <li ng-class="{'active': $location.url()=='/home'}"
+            ng-show="currentUser">
+            <a href="#/overview">
+                Overview
+            </a>
+        </li>
+        <li ng-class="{'active': $location.url()=='/alerts'}"
+            ng-show="currentUser">
+            <a href="#/alerts">
+                Alerts
+            </a>
+        </li>
+        <li ng-class="{'active': $location.url()=='/events'}"
+            ng-show="currentUser">
+            <a href="#/events">
+                My Events
+            </a>
+        </li>
+        <li ng-class="{'active': $location.url()=='/pendingPayments'}"
+            ng-show="currentUser">
+            <a href="#/pendingPayments">
+                Pending Payments
+            </a>
+        </li>
+    </ul>
+</div>
