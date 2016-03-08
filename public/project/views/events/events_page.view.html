@@ -1,0 +1,17 @@
+<div class="container-fluid">
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <h1 class="page-header">My Events</h1>
+        <ul class="nav nav-tabs">
+            <li role="navigation" class="active"><a href="#/events">Live</a></li>
+            <li role="navigation"><a href="#/events">Draft</a></li>
+            <li role="navigation"><a href="#/events">Past</a></li>
+        </ul>
+        <br>
+        <button class="btn btn-default">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Create new events
+        </button>
+        <div class="well" ng-repeat="e in events">
+            {{e.title}}
+        </div>
+    </div>
+</div>

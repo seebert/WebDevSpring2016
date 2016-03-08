@@ -17,8 +17,8 @@
                 "username":"charlie","password":"charlie"},
             {	"_id":456, "firstName":"Dan",              "lastName":"Craig", "email" : "",
                 "username":"dan",    "password":"dan"},
-            {	"_id":567, "firstName":"Edward",           "lastName":"Norton", "email" : "",
-                "username":"ed",     "password":"ed"}
+            {	"_id":567, "firstName":"John",           "lastName":"Doe", "email" : "",
+                "username":"sample",     "password":"sample"}
         ];
 
         var model = {
@@ -38,6 +38,8 @@
                 username: user.username,
                 password: user.password,
                 email: user.email,
+                firstName: user.firstName,
+                lastName: user.lastName,
                 _id : (new Date).getTime()
             };
             model.users.push(user);
@@ -63,6 +65,7 @@
                 if (model.users[u]._id === userId) {
                     model.users[u].firstName = user.firstName;
                     model.users[u].lastName = user.lastName;
+                    model.users[u].username = user.username;
                     model.users[u].password = user.password;
                     model.users[u].email = user.email;
                     return callback(model.users[u]);
