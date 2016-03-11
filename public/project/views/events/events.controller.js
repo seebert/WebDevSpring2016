@@ -16,11 +16,10 @@
 
         function addEvent(){
             var newEvent =
-                {   _id: $scope.event._id,
-                    title: $scope.event.title,
+                {   title: $scope.event.title,
                     description: $scope.event.description,
                     adminId: $scope.event.adminId,
-                    expenses: $scope.event.expenses
+                    expenses: parseExpenses($scope.event.expenses)
                 };
 
             newEvent = EventsService.createEvent(newEvent, render)
@@ -48,15 +47,6 @@
             }else{
                 $scope.message = "Event was successfully updated";
             }
-
-            function parseExpenses(eArray){
-                var expenses = eArray.split(",");
-                for(e in expenses){
-                    expenses[e] = +expenses[e];
-                }
-
-                return expenses;
-            }
         }
 
         function deleteEvent($index){
@@ -80,6 +70,15 @@
 
         function render(response){
             return response;
+        }
+
+        function parseExpenses(eArray){
+            var expenses = eArray.split(",");
+            for(e in expenses){
+                expenses[e] = +expenses[e];
+            }
+
+            return expenses;
         }
     }
 })();

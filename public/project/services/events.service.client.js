@@ -10,7 +10,7 @@
         var events = [];
         events = [
             {	"_id":1, "title":"Ski Trip", "description" : "Group trip taken in March to NH",
-                "adminId" : 567, "expenses" : [123, 234] },
+                "adminId" : 567, "expenses" : [1, 2] },
             {	"_id":2, "title":"September Bills", "description" : "Bills split amongst roommates - September 2015",
                 "adminId" : 567, "expenses" : [345] }
         ];
@@ -20,6 +20,7 @@
             createEvent: createEvent,
             findAllEvents: findAllEvents,
             findEventsByAdminId: findEventsByAdminId,
+            findEventsById: findEventsById,
             updateEvent: updateEvent,
             deleteEventById : deleteEventById
         };
@@ -50,6 +51,15 @@
             }
             return callback(foundEvents);
         }
+
+        function findEventsById(id, callback){
+            for (var e in model.events) {
+                if (model.events[e]._id == id) {
+                    return callback(model.events[e]);
+                }
+            }
+        }
+
 
         function updateEvent(eventId, event, callback) {
             for (var e in model.events) {

@@ -30,6 +30,12 @@
                 CRUD Alerts
             </a>
         </li>
+        <li ng-class="{'active': $location.url()=='/testing_payment'}"
+            ng-hide="currentUser">
+            <a href="#/testing_payment">
+                CRUD Payments
+            </a>
+        </li>
         <li ng-class="{'active': $location.url()=='/overview'}"
             ng-show="currentUser">
             <a href="#/overview">

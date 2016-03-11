@@ -1,0 +1,10 @@
+<div class="container-fluid">
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <h1 class="page-header">Payment Requests</h1>
+        <div class="well" ng-repeat="p in paymentRequests track by $index">
+            Payer Id: {{p.payerId}} <br>
+            Amount Owed: {{p.amountOwed}} <br>
+        </div>
+    </div>
+</div>
+

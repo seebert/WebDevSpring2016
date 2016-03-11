@@ -4,13 +4,23 @@
             <h1 class="page-header">Overview</h1>
 
             <h3 class="page-header">Alerts</h3>
-
+            <div class="well" ng-repeat="a in alerts track by $index">
+                Event Id: {{a.eventId}} <br>
+                Expense Id: {{a.expenseId}} <br>
+                Payee Id: {{a.payeeId}} <br>
+                Payment Request Id: {{a.payerId}} <br>
+            </div>
+            <br>
             <h3 class="page-header">
                 Live Events
                 <button class="btn btn-default pull-right">
                         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Create new events
                 </button>
             </h3>
+
+            <div class="well" ng-repeat="e in events">
+                <a href="#/events/id/1"> {{e.title}} </a>
+            </div>
         </div>
     </div>
 </div>

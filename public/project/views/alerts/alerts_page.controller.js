@@ -4,11 +4,10 @@
 (function(){
     angular
         .module("PaymentApp")
-        .controller("OverviewController", OverviewController);
+        .controller("AlertsPageController", AlertsPageController);
 
-    function OverviewController($scope, EventsService, AlertsService, UserService){
+    function AlertsPageController($scope, AlertsService, UserService){
         var currentUser = UserService.getCurrentUser();
-        $scope.events = EventsService.findEventsByAdminId(currentUser._id, render);
         $scope.alerts = AlertsService.findAlertsByPayeeId(currentUser._id, render);
     }
 

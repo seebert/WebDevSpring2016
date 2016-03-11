@@ -4,7 +4,6 @@
         <table class="table table-striped table-bordered">
             <thead>
             <tr>
-                <th><span class="caret"></span>_ID</th>
                 <th><span class="caret"></span>Title</th>
                 <th><span class="caret"></span>Description</th>
                 <th><span class="caret"></span>Admin ID</th>
@@ -12,10 +11,9 @@
                 <th><span class="caret"></span></th>
             </tr>
             <tr>
-                <td><input ng-model="event._id" type="text" class="form-control" id="id" placeholder="ID"></td>
                 <td><input ng-model="event.title" type="text" class="form-control" id="title" placeholder="Title"></td>
                 <td><input ng-model="event.description" type="text" class="form-control" id="description" placeholder="Description"></td>
-                <td><input ng-model="event.adminId" type="text" class="form-control" id="admin" placeholder="Admin ID"></td>
+                <td><input ng-model="event.adminId" type="number" class="form-control" id="admin" placeholder="Admin Id"></td>
                 <td><input ng-model="event.expenses" type="text" class="form-control" id="expenses" placeholder="Expenses"></td>
                 <td class="edit-links">
                     <button ng-click="addEvent()" class="btn btn-default">
@@ -29,7 +27,6 @@
             </thead>
             <tbody>
             <tr ng-repeat="e in events">
-                <td>{{e._id}}</td>
                 <td>{{e.title}}</td>
                 <td>{{e.description}}</td>
                 <td>{{e.adminId}}</td>
