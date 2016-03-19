@@ -11,9 +11,7 @@ module.exports = function(app, formModel) {
     app.post('/api/assignment/form/:formId/field',createField);
     /* TODO: The id of the new form field should be set dynamically using Node.js guid or node-uuid libraries.*/
 
-    app.put('/api/assignment/form/:formId/field/:fieldId');
-
-
+    app.put('/api/assignment/form/:formId/field/:fieldId', updateField);
 
     function createField(req, res){
         var formId = req.params.formId;

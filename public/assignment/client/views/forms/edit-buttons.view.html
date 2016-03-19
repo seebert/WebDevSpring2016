@@ -1,14 +1,23 @@
 <div class="edit-links form-fields col-xs-6">
-    <a href="#" class="btn btn-default">
-        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-    </a>
-    <a href="#" class="btn btn-default ">
+    <button class="btn btn-default">
+        <span class="glyphicon glyphicon-pencil" ng-click="editme=true" aria-hidden="true"></span>
+    </button>
+    <button href="#" class="btn btn-default ">
         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-    </a>
-    <a href="#" class="btn btn-default ">
-        <span class="glyphicon glyphicon-ok" ng-click="removeField(field)" aria-hidden="true"></span>
-    </a>
-    <a href="#" class="btn btn-default ">
+    </button>
+    <button href="#" class="btn btn-default ">
+        <span class="glyphicon glyphicon-remove" ng-click="removeField(field)" aria-hidden="true"></span>
+    </button>
+    <button href="#" class="btn btn-default ">
         <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
-    </a>
+    </button>
 </div>
+
+    <div class="well" ng-show="editme">
+        <label for="editTextLabel" class="fields-label ">Edit Label: </label>
+        <input type="text" id="editTextLabel"  ng-model="label" class="form-control form-fields" placeholder="{{field.label}}">
+        <label for="editTextPlaceholder" class="fields-label ">Edit Placeholder: </label>
+        <input type="text" id="editTextPlaceholder"  ng-model="placeholder" class="form-control form-fields" placeholder="{{field.placeholder}}">
+        <button type="button" class="btn btn-default" ng-click="updateField(field, {label: label, placeholder: placeholder, type:'TEXT'})"> OK </button>
+        <button type="button" class="btn btn-default" ng-click="editme=false"> CANCEL </button>
+    </div>

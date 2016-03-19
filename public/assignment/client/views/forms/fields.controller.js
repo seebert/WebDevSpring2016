@@ -47,9 +47,8 @@
         }
 
         function updateField(field, updateField){
-            console.log(field._id, updateField);
             FieldService
-                .updateField(formId, field._id, $scope.field)
+                .updateField(formId, field._id, updateField)
                 .then(function(response){
                     $scope.fields = updateFieldsView(formId);
                 })

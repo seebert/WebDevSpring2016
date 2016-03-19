@@ -36,6 +36,7 @@
         }
 
         function updateField(formId, fieldId, field){
+            console.log(field);
             return $http.put('/api/assignment/form/'+formId+'/field/'+fieldId,field);
         }
     }
