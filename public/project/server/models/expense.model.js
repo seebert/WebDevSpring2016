@@ -2,7 +2,7 @@
  * Created by Tiffanys on 3/23/16.
  */
 var mock = require("./expense.mock.json");
-var mockEvents = require("./expense.mock.json");
+var mockEvents = require("./event.mock.json");
 module.exports = function(app, db) {
     var api = {
         createExpense: createExpense,
