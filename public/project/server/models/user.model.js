@@ -6,7 +6,9 @@ module.exports = function(app, db) {
     var api = {
         createUser: createUser,
         findAllUsers : findAllUsers,
-        loginUser: loginUser,
+        findUserById : findUserById,
+        findUserByUsername : findUserByUsername,
+        findUserByCredentials: findUserByCredentials,
         updateUser: updateUser,
         deleteUserById : deleteUserById,
     };
@@ -30,7 +32,25 @@ module.exports = function(app, db) {
         return mock;
     }
 
-    function loginUser(username, password) {
+    function findUserById(id) {
+        for (var u in mock) {
+            if (mock[u]._id === id) {
+                return mock[u];
+            }
+        }
+        return null;
+    }
+    function findUserByUsername(username) {
+        for (var u in mock) {
+            if (mock[u].username === username) {
+                return mock[u];
+            }
+        }
+        return null;
+    }
+
+    function findUserByCredentials(username, password) {
+
         for (var u in mock) {
             if (mock[u].username === username &&
                 mock[u].password === password) {
