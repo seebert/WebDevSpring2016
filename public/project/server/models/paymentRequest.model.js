@@ -2,12 +2,14 @@
  * Created by Tiffanys on 3/23/16.
  */
 var mock = require("./paymentRequest.mock.json");
+var mockExpense = require("./expense.mock.json");
 module.exports = function(app, db) {
     var api = {
         createPaymentRequest: createPaymentRequest,
         findAllPaymentRequests: findAllPaymentRequests,
         findPaymentRequestById: findPaymentRequestById,
         findPaymentRequestByPayerId: findPaymentRequestByPayerId,
+        findPaymentRequestByExpenseId : findPaymentRequestByExpenseId,
         updatePaymentRequest: updatePaymentRequest,
         deletePaymentRequestById : deletePaymentRequestById
     };
@@ -42,6 +44,23 @@ module.exports = function(app, db) {
             if (mock[a].payerId == id) {
                 payments.push(mock[a]);
             }
+        }
+
+        return payments;
+    }
+
+    function findPaymentRequestByExpenseId(expenseId){
+        var paymentIds = [];
+        var payments = [];
+        for (var expense in mockExpense) {
+            if (mockExpense[expense]._id == expenseId) {
+                paymentIds = mockExpense[expense].paymentRequestIds;
+                break;
+            }
+        }
+
+        for(var id in paymentIds){
+            payments.push(findPaymentRequestById(id));
         }
 
         return payments;
