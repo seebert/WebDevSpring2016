@@ -2,11 +2,13 @@
  * Created by Tiffanys on 3/23/16.
  */
 var mock = require("./expense.mock.json");
+var mockEvents = require("./expense.mock.json");
 module.exports = function(app, db) {
     var api = {
         createExpense: createExpense,
         findAllExpenses: findAllExpenses,
         findExpenseById: findExpenseById,
+        findExpensesByEventId : findExpensesByEventId,
         updateExpense: updateExpense,
         deleteExpenseById : deleteExpenseById
     };
@@ -36,6 +38,24 @@ module.exports = function(app, db) {
             }
         }
     }
+
+    function findExpensesByEventId(eventId){
+        var expenseIds = [];
+        var expenses = [];
+        for (var event in mockEvents) {
+            if (mockEvents[event]._id == eventId) {
+                expenseIds = mock[event].expenses;
+                break;
+            }
+        }
+
+        for (var e in expenseIds) {
+            expenses.push(findExpenseById(expenseIds[e]));
+        }
+
+        return expenses;
+    }
+
 
     function updateExpense(expenseId, expense) {
         for (var e in mock) {
