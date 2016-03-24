@@ -7,7 +7,7 @@ module.exports = function(app, db) {
         createEvent: createEvent,
         findAllEvents: findAllEvents,
         findEventsByAdminId: findEventsByAdminId,
-        findEventsById: findEventsById,
+        findEventById: findEventById,
         updateEvent: updateEvent,
         deleteEventById : deleteEventById
     };
@@ -40,7 +40,7 @@ module.exports = function(app, db) {
         return foundEvents;
     }
 
-    function findEventsById(id){
+    function findEventById(id){
         for (var e in mock) {
             if (mock[e]._id == id) {
                 return mock[e];
