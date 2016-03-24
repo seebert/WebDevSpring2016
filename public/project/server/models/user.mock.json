@@ -1,10 +1,12 @@
-{
-  "compilerOptions": {
-    "module": "commonjs",
-    "target": "es5",
-    "sourceMap": true
-  },
-  "exclude": [
-    "node_modules"
-  ]
-}
+[
+  {	"_id":123, "firstName":"Alice",            "lastName":"Wonderland", "email" : "",
+    "username":"alice",  "password":"alice" },
+  {	"_id":234, "firstName":"Bob",              "lastName":"Hope", "email" : "",
+    "username":"bob",    "password":"bob"},
+  {	"_id":345, "firstName":"Charlie",          "lastName":"Brown", "email" : "",
+    "username":"charlie","password":"charlie"},
+  {	"_id":456, "firstName":"Dan",              "lastName":"Craig", "email" : "",
+    "username":"dan",    "password":"dan"},
+  {	"_id":567, "firstName":"John",           "lastName":"Doe", "email" : "",
+    "username":"sample",     "password":"sample"}
+]

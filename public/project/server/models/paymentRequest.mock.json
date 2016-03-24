@@ -1,0 +1,5 @@
+[
+  { "_id" : 1, "payerId" : 123, "amountOwed" : 40},
+  { "_id" : 2, "payerId" : 234, "amountOwed" : 12},
+  { "_id" : 3, "payerId" : 567, "amountOwed" : 75}
+]

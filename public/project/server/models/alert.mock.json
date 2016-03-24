@@ -1,0 +1,6 @@
+[
+  { "_id" : 1, "eventId" : 1, "expenseId" : 1,
+  "payeeId" : 567, "payerId" : 123 },
+  { "_id" : 2, "eventId" : 1, "expenseId" : 2,
+  "payeeId" : 567, "payerId" : 234 }
+]

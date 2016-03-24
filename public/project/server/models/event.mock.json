@@ -1,0 +1,6 @@
+[
+  {	"_id":1, "title":"Ski Trip", "description" : "Group trip taken in March to NH",
+    "adminId" : 567, "expenses" : [1, 2] },
+  {	"_id":2, "title":"September Bills", "description" : "Bills split amongst roommates - September 2015",
+    "adminId" : 567, "expenses" : [345] }
+]
