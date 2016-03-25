@@ -8,11 +8,16 @@
 
     function OverviewController($scope, EventsService, AlertsService, UserService){
         var currentUser = UserService.getCurrentUser();
-        $scope.events = EventsService.findEventsByAdminId(currentUser._id, render);
-        $scope.alerts = AlertsService.findAlertsByPayeeId(currentUser._id, render);
-    }
+        EventsService
+            .findEventsByAdminId(currentUser._id)
+            .then(function(response){
+                $scope.events = response.data;
+            });
 
-    function render(response){
-        return response;
+        AlertsService
+            .findAlertsByPayeeId(currentUser._id)
+            .then(function(response){
+                $scope.alerts = response.data;
+            });
     }
 })();

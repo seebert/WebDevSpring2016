@@ -1,26 +1,24 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <h1 class="page-header">Overview</h1>
-
-            <h3 class="page-header">Alerts</h3>
-            <div class="well" ng-repeat="a in alerts track by $index">
-                Event Id: {{a.eventId}} <br>
-                Expense Id: {{a.expenseId}} <br>
-                Payee Id: {{a.payeeId}} <br>
-                Payment Request Id: {{a.payerId}} <br>
+            <h2 class="page-header">Alerts</h2>
+            <div ng-repeat="a in alerts track by $index">
+                <span class="glyphicon glyphicon-exclamation-sign"></span>
+                Payee [id={{a.payeeId}}] has requested a payment from Payer [id={{a.payerId}}] for event [id:{{a.eventId}}] <br>
             </div>
+            <a class="row text-warning" href="#alerts">See all > </a>
             <br>
-            <h3 class="page-header">
+            <h2 class="page-header">
                 Live Events
                 <button class="btn btn-default pull-right">
-                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Create new events
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Create new event
                 </button>
-            </h3>
+            </h2>
 
             <div class="well" ng-repeat="e in events">
-                <a href="#/events/id/1"> {{e.title}} </a>
+                <a  href="#/events/{{e._id}}"> {{e.title}} </a>
             </div>
+            <a class="text-warning" href="#events">See all > </a>
         </div>
     </div>
 </div>
