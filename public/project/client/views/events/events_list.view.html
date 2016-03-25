@@ -7,7 +7,7 @@
             <li role="navigation"><a href="#/events">Past</a></li>
         </ul>
         <br>
-        <button class="btn btn-default">
+        <button class="btn btn-default" data-toggle="modal" data-target="#createEvent">
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Create new events
         </button>
         <div class="well" ng-repeat="e in events">
@@ -15,3 +15,5 @@
         </div>
     </div>
 </div>
+
+<div ng-include src="'views/events/events_new.view.html'"></div>

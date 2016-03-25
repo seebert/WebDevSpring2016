@@ -1,10 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<div ng-controller="EventListController"  id="createEvent" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Create a new event</h4>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <label for="title">Title:</label>
+                    <input ng-model="$parent.newEvent.title" type="text" class="form-control" id="title" placeholder="Ski Trip">
+                </div>
 
-</body>
-</html>
+                <div>
+                    <label for="description">Description:</label>
+                    <input ng-model="$parent.newEvent.description" type="text" class="form-control" id="description" placeholder="Trip to NH to hit the slopes!">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" ng-click="$parent.create($parent.newEvent)" data-dismiss="modal">Create</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
