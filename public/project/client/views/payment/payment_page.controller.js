@@ -8,10 +8,11 @@
 
     function PaymentPageController($scope, PaymentRequestsService, UserService){
         var currentUser = UserService.getCurrentUser();
-        $scope.paymentRequests = PaymentRequestsService.findPaymentRequestByPayerId(currentUser._id, render);
-    }
 
-    function render(response){
-        return response;
+        PaymentRequestsService
+            .findPaymentRequestByPayerId(currentUser._id)
+            .then(function(response){
+                $scope.paymentRequests = response.data;
+            });
     }
 })();
