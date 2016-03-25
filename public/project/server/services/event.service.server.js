@@ -3,7 +3,7 @@
  */
 module.exports = function(app, eventModel) {
     app.post('/api/project/event', createEvent);
-    app.get('/api/project/event/', getEvents);
+    app.get('/api/project/event', getEvents);
     app.get('/api/project/event?adminId=:adminId', getEventsByAdminId);
     app.get('/api/project/event?eventId=:eventId', getEventById);
     app.put('/api/project/event/:eventId', updateEventById);

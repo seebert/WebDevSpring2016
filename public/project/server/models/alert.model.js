@@ -23,7 +23,7 @@ module.exports = function(app, db) {
             payerId: alert.payerId,
             _id : (new Date).getTime()
         };
-        mock.alerts.push(alert);
+        mock.push(alert);
         return alert;
     }
 
@@ -58,7 +58,7 @@ module.exports = function(app, db) {
                 mock[a].expenseId = alert.expenseId;
                 mock[a].payeeId = alert.payeeId;
                 mock[a].payerId = alert.payerId;
-                return callback(mock[a]);
+                return mock[a];
             }
         }
         return null;

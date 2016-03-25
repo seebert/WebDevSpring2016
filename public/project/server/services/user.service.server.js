@@ -14,13 +14,15 @@ module.exports = function(app, userModel){
     app.delete('/api/project/user/:id', deleteUser);
 
     function createUser(req, res){
-        console.log("Create user");
+        console.log("createUser() > Create user");
         userModel.createUser(req.body);
         var users = userModel.findAllUsers();
+        console.log("createUser() >All users:" + users.toString());
         res.json(users);
     }
 
     function getUser(req, res){
+        console.log("getUser() entered");
         if(req.query.username){
             if(req.query.password){
                 getUserByCredentials(req,res);
@@ -52,6 +54,7 @@ module.exports = function(app, userModel){
     function getAllUsers(req, res){
         console.log("Get all users");
         var users = userModel.findAllUsers();
+        console.log("getAllUsers() > All users:" + users.toString());
         res.json(users);
     }
 
