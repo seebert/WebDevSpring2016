@@ -14,11 +14,9 @@ module.exports = function(app, userModel){
     app.delete('/api/project/user/:id', deleteUser);
 
     function createUser(req, res){
-        console.log("createUser() > Create user");
-        userModel.createUser(req.body);
-        var users = userModel.findAllUsers();
-        console.log("createUser() >All users:" + users.toString());
-        res.json(users);
+        console.log("createUser() > Create user " + JSON.stringify(req.body));
+        var newUser = userModel.createUser(req.body);
+        res.json(newUser);
     }
 
     function getUser(req, res){

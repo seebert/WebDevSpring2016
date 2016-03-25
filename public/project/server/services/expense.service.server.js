@@ -11,8 +11,8 @@ module.exports = function(app, expenseModel) {
 
     function createExpense(req, res){
         console.log("Create expense");
-        expenseModel.createExpense(req.body);
-        res.json(null);
+        var expense = expenseModel.createExpense(req.body);
+        res.json(expense);
     }
 
     function getExpenses(req, res){

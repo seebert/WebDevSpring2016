@@ -12,8 +12,8 @@ module.exports = function(app, eventModel) {
 
     function createEvent(req, res){
         console.log("Create event");
-        eventModel.createEvent(req.body);
-        res.json(null);
+        var event = eventModel.createEvent(req.body);
+        res.json(event);
     }
 
     function getEvents(req, res){

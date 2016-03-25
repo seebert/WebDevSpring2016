@@ -13,8 +13,8 @@ module.exports = function(app, paymentRequestModel) {
 
     function createPaymentRequest(req, res){
         console.log("Create payment request");
-        paymentRequestModel.createPaymentRequest(req.body);
-        res.json(null);
+        var newPayment = paymentRequestModel.createPaymentRequest(req.body);
+        res.json(newPayment);
     }
 
     function getPaymentRequests(req, res){

@@ -11,8 +11,8 @@ module.exports = function(app, alertModel) {
 
     function createAlert(req, res){
         console.log("Create alert");
-        alertModel.createAlert(req.body);
-        res.json(null);
+        var alert = alertModel.createAlert(req.body);
+        res.json(alert);
     }
 
     function getAlerts(req, res){
