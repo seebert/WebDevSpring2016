@@ -68,7 +68,7 @@ module.exports = function(app, db) {
 
     function updatePaymentRequest(paymentRequestId, paymentRequest) {
         for (var e in mock) {
-            if (mock[e]._id === paymentRequestId) {
+            if (mock[e]._id == paymentRequestId) {
                 mock[e].payerId = paymentRequest.payerId;
                 mock[e].amountOwed = paymentRequest.amountOwed;
                 return mock[e];
@@ -79,7 +79,7 @@ module.exports = function(app, db) {
 
     function deletePaymentRequestById(paymentRequestId) {
         for (var e in mock) {
-            if (mock[e]._id === paymentRequestId) {
+            if (mock[e]._id == paymentRequestId) {
                 mock.splice(e, 1);
             }
         }

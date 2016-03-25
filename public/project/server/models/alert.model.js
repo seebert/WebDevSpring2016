@@ -53,7 +53,7 @@ module.exports = function(app, db) {
 
     function updateAlert(alertId, alert) {
         for (var a in mock) {
-            if (mock[a]._id === alertId) {
+            if (mock[a]._id == alertId) {
                 mock[a].eventId = alert.eventId;
                 mock[a].expenseId = alert.expenseId;
                 mock[a].payeeId = alert.payeeId;
@@ -66,7 +66,7 @@ module.exports = function(app, db) {
 
     function deleteAlertById(alertId) {
         for (var a in mock) {
-            if (mock[a]._id === alertId) {
+            if (mock[a]._id == alertId) {
                 mock.splice(a, 1);
             }
         }

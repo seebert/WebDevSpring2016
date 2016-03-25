@@ -10,7 +10,7 @@ module.exports = function(app, db) {
         findUserByUsername : findUserByUsername,
         findUserByCredentials: findUserByCredentials,
         updateUser: updateUser,
-        deleteUserById : deleteUserById,
+        deleteUserById : deleteUserById
     };
 
     return api;
@@ -34,7 +34,7 @@ module.exports = function(app, db) {
 
     function findUserById(id) {
         for (var u in mock) {
-            if (mock[u]._id === id) {
+            if (mock[u]._id == id) {
                 return mock[u];
             }
         }
@@ -42,7 +42,7 @@ module.exports = function(app, db) {
     }
     function findUserByUsername(username) {
         for (var u in mock) {
-            if (mock[u].username === username) {
+            if (mock[u].username == username) {
                 return mock[u];
             }
         }
@@ -52,8 +52,8 @@ module.exports = function(app, db) {
     function findUserByCredentials(username, password) {
 
         for (var u in mock) {
-            if (mock[u].username === username &&
-                mock[u].password === password) {
+            if (mock[u].username == username &&
+                mock[u].password == password) {
                 return mock[u];
             }
         }
@@ -62,7 +62,7 @@ module.exports = function(app, db) {
 
     function updateUser(userId, user) {
         for (var u in mock) {
-            if (mock[u]._id === userId) {
+            if (mock[u]._id == userId) {
                 mock[u].firstName = user.firstName;
                 mock[u].lastName = user.lastName;
                 mock[u].username = user.username;
@@ -76,7 +76,7 @@ module.exports = function(app, db) {
 
     function deleteUserById(userId) {
         for (var u in mock) {
-            if (mock[u]._id === userId) {
+            if (mock[u]._id == userId) {
                 mock.splice(u, 1);
             }
         }

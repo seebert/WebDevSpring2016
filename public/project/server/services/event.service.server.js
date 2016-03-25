@@ -50,10 +50,9 @@ module.exports = function(app, eventModel) {
     }
 
     function updateEventById(req, res){
-        eventModel.updateEvent(req.params.eventId, req.params.event);
-        var events = eventModel.findAllEvents();
+        var event = eventModel.updateEvent(req.params.eventId, req.params.event);
 
-        res.json(events);
+        res.json(event);
     }
 
     function deleteEventById(req, res){

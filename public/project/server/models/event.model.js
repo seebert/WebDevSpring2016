@@ -51,7 +51,7 @@ module.exports = function(app, db) {
 
     function updateEvent(eventId, event) {
         for (var e in mock) {
-            if (mock[e]._id === eventId) {
+            if (mock[e]._id == eventId) {
                 mock[e].title = event.title;
                 mock[e].description = event.description;
                 mock[e].adminId = event.adminId;
@@ -64,7 +64,7 @@ module.exports = function(app, db) {
 
     function deleteEventById(eventId) {
         for (var e in mock) {
-            if (mock[e]._id === eventId) {
+            if (mock[e]._id == eventId) {
                 mock.splice(e, 1);
             }
         }

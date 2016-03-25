@@ -59,10 +59,9 @@ module.exports = function(app, paymentRequestModel) {
     }
 
     function updatePaymentRequestById(req, res){
-        paymentRequestModel.updatePaymentRequestById(req.params.requestId, req.params.paymentRequest);
-        var paymentRequests = paymentRequestModel.findAllPaymentRequests();
+         var paymentRequest = paymentRequestModel.updatePaymentRequestById(req.params.requestId, req.params.paymentRequest);
 
-        res.json(paymentRequests);
+        res.json(paymentRequest);
     }
 
     function deletePaymentRequestById(req, res){

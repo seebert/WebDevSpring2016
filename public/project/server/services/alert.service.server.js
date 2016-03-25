@@ -49,9 +49,8 @@ module.exports = function(app, alertModel) {
     }
 
     function updateAlertById(req, res){
-        alertModel.updateUser(req.params.alertId, req.params.alert);
-        var alerts = alertModel.findAllAlerts();
-        res.json(alerts);
+        var alert = alertModel.updateUser(req.params.alertId, req.params.alert);
+        res.json(alert);
     }
 
     function deleteAlertById(req, res){

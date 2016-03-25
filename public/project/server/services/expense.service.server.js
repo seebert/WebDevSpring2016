@@ -49,10 +49,9 @@ module.exports = function(app, expenseModel) {
     }
 
     function updateExpenseById(req, res){
-        expenseModel.updateExpenseById(req.params.expenseId, req.params.expense);
-        var expenses = expenseModel.findAllExpenses();
+        var expense = expenseModel.updateExpenseById(req.params.expenseId, req.params.expense);
 
-        res.json(expenses);
+        res.json(expense);
     }
 
     function deleteExpenseById(req, res){

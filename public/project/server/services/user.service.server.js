@@ -9,9 +9,9 @@ module.exports = function(app, userModel){
     app.get('/api/project/user', getUser);
     app.get('/api/project/user?username=:username', getUserByUsername);
     app.get('/api/project/user?username=:username&password=:password', getUserByCredentials);
-    app.get('/api/project/user/:id', getUserById);
-    app.put('/api/project/user/:id', updateUser);
-    app.delete('/api/project/user/:id', deleteUser);
+    app.get('/api/project/user/:userId', getUserById);
+    app.put('/api/project/user/:userId', updateUser);
+    app.delete('/api/project/user/:userId', deleteUser);
 
     function createUser(req, res){
         console.log("createUser() > Create user " + JSON.stringify(req.body));
@@ -66,10 +66,9 @@ module.exports = function(app, userModel){
 
 
     function updateUser(req, res){
-        userModel.updateUser(req.params.userId, req.params.user);
-        var users = userModel.findAllUsers();
-
-        res.json(users);
+        var user = userModel.updateUser(req.params.userId, req.body);
+        console.log("updateUser() > updated user " + JSON.stringify(user));
+        res.json(user);
     }
 
     function deleteUser(req, res){
