@@ -27,13 +27,14 @@
                 return;
             }
 
-            var newUser= UserService.createUser($scope.user, render);
-            UserService.setCurrentUser(newUser);
-            $location.url("/profile");
-        }
-
-        function render(response){
-            return response;
+           UserService
+               .createUser($scope.user)
+               .then(function(response){
+                   var newUser = response.data;
+                   console.log("register() > Registering user " + JSON.stringify(newUser));
+                   UserService.setCurrentUser(newUser);
+                   $location.url("/profile");
+               });
         }
     }
 })();

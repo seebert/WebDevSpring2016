@@ -15,19 +15,20 @@
                 return;
             }
 
-            var user = UserService.loginUser($scope.user.username, $scope.user.password, render);
+            UserService
+                .loginUser($scope.user.username, $scope.user.password)
+                .then(function(response){
+                    var user = response.data;
 
-            if(!user){
-                $scope.message = "Incorrect username or password";
-                return;
-            }
+                    console.log("login() > " + JSON.stringify(user));
+                    if(!user){
+                        $scope.message = "Incorrect username or password";
+                        return;
+                    }
 
-            UserService.setCurrentUser(user);
-            $location.url("/overview");
-        }
-
-        function render(response){
-            return response;
+                    UserService.setCurrentUser(user);
+                    $location.url("/overview");
+                });
         }
     }
 })();

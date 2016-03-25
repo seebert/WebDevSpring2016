@@ -24,14 +24,18 @@
                 $scope.error = "Please enter a valid email";
             }
 
-            var updatedUser = UserService.updateUser($scope.user._id, $scope.user, render);
-
-            if(!updatedUser){
-                    $scope.error = "Unable to update user information";
-            }else{
-                    $scope.message = "Update successful";
-                    UserService.setCurrentUser(updatedUser);
-            }
+            UserService
+                .updateUser($scope.user._id, $scope.user)
+                .then(function(response){
+                    var updatedUser = response.data;
+                    console.log("update() > " + JSON.stringify(updatedUser));
+                    if(!updatedUser){
+                        $scope.error = "Unable to update user information";
+                    }else{
+                        $scope.message = "Update successful";
+                        UserService.setCurrentUser(updatedUser);
+                    }
+                });
 
 
             function validEmail(email){
@@ -40,10 +44,5 @@
             }
 
         }
-
-        function render(response){
-            return response;
-        }
-
     }
 })();
