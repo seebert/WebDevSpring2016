@@ -2,5 +2,7 @@
   { "_id" : 1, "title" : "Groceries", "description" : "Food expenses",
     "payeeId" : 567, "paymentRequestIds" : [1,2] },
   { "_id" : 2, "title" : "Gas", "description" : "Gas",
+    "payeeId" : 456, "paymentRequestIds" : [1,2,3] },
+  {"_id" : 3, "title" : "Cable", "description" : "Comcast bill",
     "payeeId" : 456, "paymentRequestIds" : [1,2,3] }
 ]
