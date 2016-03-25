@@ -7,69 +7,38 @@
         .factory("ExpensesService", ExpensesService);
 
     function ExpensesService(){
-        var expenses = [];
-        expenses = [
-            { "_id" : 1, "title" : "Groceries", "description" : "Food expenses",
-             "payeeId" : 567, "paymentRequestIds" : [1,2] },
-            { "_id" : 2, "title" : "Gas", "description" : "Gas",
-                "payeeId" : 456, "paymentRequestIds" : [1,2,3] }
-        ];
-
-        var model = {
-            expenses: expenses,
+        var api = {
             createExpense: createExpense,
             findAllExpenses: findAllExpenses,
             findExpenseById: findExpenseById,
+            findExpensesByEventId :findExpensesByEventId,
             updateExpense: updateExpense,
             deleteExpenseById : deleteExpenseById
         };
 
-        return model;
+        return api;
 
-        function createExpense(expense, callback) {
-            var expense = {
-                title: expense.title,
-                description: expense.description,
-                payeeId: expense.payeeId,
-                paymentRequestIds: expense.paymentRequestIds,
-                _id : (new Date).getTime()
-            };
-            model.expenses.push(expense);
-            return callback(expense);
+        function createExpense(expense) {
+            return $http.post('/api/project/expense', expense);
         }
 
-        function findAllExpenses(callback){
-            return callback(model.expenses);
+        function findAllExpenses(){
+            return $http.get('/api/project/expense');
         }
 
-        function findExpenseById(id, callback){
-            for (var e in model.expenses) {
-                if (model.expenses[e]._id == id) {
-                    return callback(model.expenses[e]);
-                }
-            }
+        function findExpensesByEventId(eventId){
+            return $http.get('/api/project/event/'+eventId+'/expense');
+        }
+        function findExpenseById(id){
+            return $http.get('/api/project/expense?expenseId='+id);
         }
 
-        function updateExpense(expenseId, expense, callback) {
-            for (var e in model.expenses) {
-                if (model.expenses[e]._id === expenseId) {
-                    model.expenses[e].title = expense.title;
-                    model.expenses[e].description = expense.description;
-                    model.expenses[e].payeeId = expense.payeeId;
-                    model.expenses[e].paymentRequestIds = expense.paymentRequestIds;
-                    return callback(model.expenses[e]);
-                }
-            }
-            return callback(null);
+        function updateExpense(expenseId, expense) {
+            return $http.put('/api/project/expense/'+expenseId, expense);
         }
 
-        function deleteExpenseById(expenseId, callback) {
-            for (var e in model.expenses) {
-                if (model.expenses[e]._id === expenseId) {
-                    model.expenses.splice(e, 1);
-                }
-            }
-            return callback(model.expenses);
+        function deleteExpenseById(expenseId) {
+            return $http.delete('/api/project/expense/'+expenseId);
         }
 
     }
