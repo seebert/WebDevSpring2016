@@ -6,7 +6,7 @@
         .module("PaymentApp")
         .factory("EventsService", EventsService);
 
-    function EventsService() {
+    function EventsService($http) {
 
         var api = {
             createEvent: createEvent,

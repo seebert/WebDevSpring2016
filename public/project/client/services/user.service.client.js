@@ -21,10 +21,12 @@
         return api;
 
         function createUser(user) {
-            return $http.post("/api/assignment/user", user);
+            return $http.post("/api/project/user", user);
         }
 
         function findAllUsers(){
+            console.log("findAllUsers() > ");
+            console.log($http.get("/api/project/user"));
             return $http.get("/api/project/user");
         }
 

@@ -6,7 +6,7 @@
         .module("PaymentApp")
         .factory("AlertsService", AlertsService);
 
-    function AlertsService(){
+    function AlertsService($http){
         var api = {
             createAlert: createAlert,
             findAllAlerts: findAllAlerts,

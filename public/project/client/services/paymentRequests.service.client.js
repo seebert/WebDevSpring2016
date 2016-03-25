@@ -6,7 +6,7 @@
         .module("PaymentApp")
         .factory("PaymentRequestsService", PaymentRequestsService);
 
-    function PaymentRequestsService(){
+    function PaymentRequestsService($http){
         var api = {
             createPaymentRequest: createPaymentRequest,
             findAllPaymentRequests: findAllPaymentRequests,

@@ -6,7 +6,7 @@
         .module("PaymentApp")
         .factory("ExpensesService", ExpensesService);
 
-    function ExpensesService(){
+    function ExpensesService($http){
         var api = {
             createExpense: createExpense,
             findAllExpenses: findAllExpenses,
