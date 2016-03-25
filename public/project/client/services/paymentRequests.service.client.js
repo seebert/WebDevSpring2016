@@ -7,76 +7,44 @@
         .factory("PaymentRequestsService", PaymentRequestsService);
 
     function PaymentRequestsService(){
-        var paymentRequests = [];
-        paymentRequests = [
-            { "_id" : 1, "payerId" : 123, "amountOwed" : 40},
-            { "_id" : 2, "payerId" : 234, "amountOwed" : 12},
-            { "_id" : 3, "payerId" : 567, "amountOwed" : 75}
-        ];
-
-        var model = {
-            paymentRequests: paymentRequests,
+        var api = {
             createPaymentRequest: createPaymentRequest,
             findAllPaymentRequests: findAllPaymentRequests,
             findPaymentRequestById: findPaymentRequestById,
             findPaymentRequestByPayerId: findPaymentRequestByPayerId,
+            findPaymentRequestsByExpenseId : findPaymentRequestsByExpenseId,
             updatePaymentRequest: updatePaymentRequest,
             deletePaymentRequestById : deletePaymentRequestById
         };
 
-        return model;
+        return api;
 
-        function createPaymentRequest(paymentRequest, callback) {
-            var paymentRequest = {
-                payerId: paymentRequest.payerId,
-                amountOwed: paymentRequest.amountOwed,
-                _id : (new Date).getTime()
-            };
-            model.paymentRequests.push(paymentRequest);
-            return callback(paymentRequest);
+        function createPaymentRequest(paymentRequest) {
+            return $http.post('/api/project/paymentRequest', paymentRequest);
         }
 
-        function findAllPaymentRequests(callback){
-            return callback(model.paymentRequests);
+        function findAllPaymentRequests(){
+            return $http.get('/api/project/paymentRequest');
         }
 
-        function findPaymentRequestById(id, callback){
-            for (var e in model.paymentRequests) {
-                if (model.paymentRequests[e]._id == id) {
-                    return callback(model.paymentRequests[e]);
-                }
-            }
+        function findPaymentRequestById(id){
+            return $http.get('/api/project/paymentRequest?requestId='+id);
         }
 
-        function findPaymentRequestByPayerId(id, callback){
-            var payments = [];
-            for (var a in model.paymentRequests) {
-                if (model.paymentRequests[a].payerId == id) {
-                    payments.push(model.paymentRequests[a]);
-                }
-            }
-
-            return callback(payments);
+        function findPaymentRequestByPayerId(id){
+            return $http.get('/api/project/paymentRequest?payerId='+id);
         }
 
-        function updatePaymentRequest(paymentRequestId, paymentRequest, callback) {
-            for (var e in model.paymentRequests) {
-                if (model.paymentRequests[e]._id === paymentRequestId) {
-                    model.paymentRequests[e].payerId = paymentRequest.payerId;
-                    model.paymentRequests[e].amountOwed = paymentRequest.amountOwed;
-                    return callback(model.paymentRequests[e]);
-                }
-            }
-            return callback(null);
+        function findPaymentRequestsByExpenseId(eventId, expenseId){
+            return $http.get('/api/project/event/'+eventId+'/expense/'+expenseId+'/paymentRequest');
         }
 
-        function deletePaymentRequestById(paymentRequestId, callback) {
-            for (var e in model.paymentRequests) {
-                if (model.paymentRequests[e]._id === paymentRequestId) {
-                    model.paymentRequests.splice(e, 1);
-                }
-            }
-            return callback(model.paymentRequests);
+        function updatePaymentRequest(paymentRequestId, paymentRequest) {
+            return $http.put('/api/project/paymentRequest/'+paymentRequestId, paymentRequest);
+        }
+
+        function deletePaymentRequestById(paymentRequestId) {
+            return $http.delete('/api/project/paymentRequest/'+paymentRequestId);
         }
 
     }
