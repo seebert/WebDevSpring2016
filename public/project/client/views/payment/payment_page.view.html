@@ -2,8 +2,15 @@
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
         <h1 class="page-header">Payment Requests</h1>
         <div class="well" ng-repeat="p in paymentRequests track by $index">
-            Payer Id: {{p.payerId}} <br>
-            Amount Owed: {{p.amountOwed}} <br>
+            <div> Payer Id:
+                <button class="btn btn-default">
+                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span> {{p.payerId}}
+                </button>
+            </div>
+            <br>
+            <div>
+                Amount Owed: ${{p.amountOwed}} <br>
+            </div>
         </div>
     </div>
 </div>

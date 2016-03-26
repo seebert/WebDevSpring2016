@@ -6,10 +6,22 @@
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add new expenses
         </button>
         <div class="well" ng-repeat="e in expenses track by $index">
-            Title: {{e.title}} <br>
-            Description: {{e.description}} <br>
-            Payee: {{e.payeeId}} <br>
-            Payment Request Id: {{e.paymentRequestIds}} <br>
+            <h4>{{e.title}}</h4>
+            <p> {{e.description}} </p>
+            <p> Pay to:
+                <button class="btn btn-default">
+                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span> {{e.payeeId}}
+                </button>
+            </p>
+            <p> Payment(s) pending from:
+                <button class="btn btn-default" ng-repeat="payment in e.paymentRequestIds" >
+                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span> {{payment}}
+                </button>
+                <button class="btn btn-info">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                </button>
+            </p>
+
         </div>
     </div>
 </div>

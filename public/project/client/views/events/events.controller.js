@@ -8,8 +8,9 @@
         .controller("EventListController", EventListController)
         .controller("EventDetailsController", EventDetailsController);
 
-    function EventListController($scope, EventsService, UserService){
+    function EventListController($scope, $location, EventsService, UserService){
         $scope.createEvent = createEvent;
+        $scope.go = go;
         var currentUser = UserService.getCurrentUser();
         setScopeEvents();
 
@@ -31,6 +32,11 @@
                     $scope.newEvent = null;
                     setScopeEvents()
                 });
+        }
+
+        function go( path ) {
+            console.log( path);
+            $location.path( path );
         }
 
     }
