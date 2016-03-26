@@ -28,8 +28,8 @@
                 controller:"ProfileController"
             })
             .when("/events", {
-                templateUrl:"views/events/events_page.view.html",
-                controller:"EventPageController"
+                templateUrl:"views/events/events_list.view.html",
+                controller:"EventListController"
             })
             .when("/alerts", {
                 templateUrl:"views/alerts/alerts_page.view.html",
@@ -39,29 +39,9 @@
                 templateUrl:"views/payment/payment_page.view.html",
                 controller:"PaymentPageController"
             })
-            .when("/events/id/:eventId", {
-                templateUrl:'views/events/events_page_sample.view.html',
-                controller:"EventSamplePageController"
-            })
-            .when("/testing_alerts", {
-                templateUrl:"views/alerts/alerts.view.html",
-                controller:"AlertsController"
-            })
-            .when("/testing_events", {
-                templateUrl:"views/events/events.view.html",
-                controller:"EventsController"
-            })
-            .when("/testing_users", {
-                templateUrl:"views/user/user.view.html",
-                controller:"UserController"
-            })
-            .when("/testing_expenses", {
-                templateUrl:"views/expenses/expenses.view.html",
-                controller:"ExpensesController"
-            })
-            .when("/testing_payment", {
-                templateUrl:"views/payment/payment.view.html",
-                controller:"PaymentRequestsController"
+            .when("/events/:eventId", {
+                templateUrl:'views/events/events_edit.view.html',
+                controller:"EventDetailsController"
             })
             .otherwise({
                 redirectTo : "/home"

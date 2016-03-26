@@ -6,8 +6,9 @@
         .module("PaymentApp")
         .controller("OverviewController", OverviewController);
 
-    function OverviewController($scope, EventsService, AlertsService, UserService){
+    function OverviewController($scope, $location, EventsService, AlertsService, UserService){
         $scope.createEvent = createEvent;
+        $scope.go = go;
         var currentUser = UserService.getCurrentUser();
         setScopeEvents();
 
@@ -35,6 +36,11 @@
                     $scope.newEvent = null;
                     setScopeEvents()
                 });
+        }
+
+        function go( path ) {
+            console.log( path);
+            $location.path( path );
         }
     }
 })();

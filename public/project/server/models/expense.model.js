@@ -15,7 +15,7 @@ module.exports = function(app, db) {
 
     return api;
 
-    function createExpense(expense) {
+    function createExpense(eventId, expense) {
         var expense = {
             title: expense.title,
             description: expense.description,
@@ -24,7 +24,21 @@ module.exports = function(app, db) {
             _id : (new Date).getTime()
         };
         mock.push(expense);
+        addExpenseToEvent(expense._id, eventId);
         return expense;
+    }
+
+    function addExpenseToEvent(expenseId, eventId){
+        for (var event in mockEvents) {
+            if (mockEvents[event]._id == eventId) {
+                if(mockEvents[event].expenses){
+                    mockEvents[event].expenses.push(expenseId);
+                }else{
+                    mockEvents[event].expenses = [expenseId];
+                }
+                break;
+            }
+        }
     }
 
     function findAllExpenses(){

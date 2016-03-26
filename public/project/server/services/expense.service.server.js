@@ -2,7 +2,7 @@
  * Created by Tiffanys on 3/24/16.
  */
 module.exports = function(app, expenseModel) {
-    app.post('/api/project/expense', createExpense);
+    app.post('/api/project/event/:eventId/expense', createExpense);
     app.get('/api/project/expense', getExpenses);
     app.get('/api/project/event/:eventId/expense', getExpensesByEventId);
     app.get('/api/project/expense?expenseId=:expenseId', getExpenseById);
@@ -10,8 +10,8 @@ module.exports = function(app, expenseModel) {
     app.delete('/api/project/expense/:expenseId', deleteExpenseById);
 
     function createExpense(req, res){
-        console.log("Create expense");
-        var expense = expenseModel.createExpense(req.body);
+        var eventId = req.params.eventId;
+        var expense = expenseModel.createExpense(eventId, req.body);
         res.json(expense);
     }
 

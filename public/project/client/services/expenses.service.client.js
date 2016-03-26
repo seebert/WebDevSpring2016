@@ -18,8 +18,8 @@
 
         return api;
 
-        function createExpense(expense) {
-            return $http.post('/api/project/expense', expense);
+        function createExpense(eventId, expense) {
+            return $http.post('/api/project/event/'+eventId+'/expense', expense);
         }
 
         function findAllExpenses(){
