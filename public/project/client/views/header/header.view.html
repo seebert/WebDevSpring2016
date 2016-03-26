@@ -9,6 +9,16 @@
             </button>
             <a class="navbar-brand" href="#">Group Payments</a>
         </div>
+        <div class="col-sm-3 col-md-offset-3">
+            <form class="navbar-form" role="search">
+                <div class="input-group">
+                    <input type="text" ng-model="req" class="form-control" placeholder="Search" name="srch-term" id="srch-term">
+                    <div class="input-group-btn">
+                        <button class="btn btn-default" type="submit" ng-click="search()"><i class="glyphicon glyphicon-search"></i></button>
+                    </div>
+                </div>
+            </form>
+        </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li ng-class="{'active': $location.url()=='/register'}"
