@@ -1,11 +1,9 @@
 <div class="container-fluid">
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
         <h1 class="page-header">Alerts</h1>
-        <div class="well" ng-repeat="a in alerts track by $index">
-            Event Id: {{a.eventId}} <br>
-            Expense Id: {{a.expenseId}} <br>
-            Payee Id: {{a.payeeId}} <br>
-            Payment Request Id: {{a.payerId}} <br>
+        <div ng-repeat="a in alerts track by $index">
+            <span class="glyphicon glyphicon-exclamation-sign"></span>
+            Payee [id={{a.payeeId}}] has requested a payment from Payer [id={{a.payerId}}] for event [id:{{a.eventId}}] <br>
         </div>
     </div>
 </div>

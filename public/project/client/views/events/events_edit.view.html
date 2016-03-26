@@ -2,7 +2,7 @@
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
         <h1 class="page-header">{{event.title}}</h1>
         <br>
-        <button class="btn btn-default">
+        <button class="btn btn-default" data-toggle="modal" data-target="#createExpense">
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add new expenses
         </button>
         <div class="well" ng-repeat="e in expenses track by $index">
@@ -13,3 +13,6 @@
         </div>
     </div>
 </div>
+
+
+<div ng-include src="'views/expenses/expenses_new.view.html'"></div>

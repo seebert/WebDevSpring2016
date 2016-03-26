@@ -9,10 +9,9 @@
         .controller("EventDetailsController", EventDetailsController);
 
     function EventListController($scope, EventsService, UserService){
-        $scope.create = create;
+        $scope.createEvent = createEvent;
         var currentUser = UserService.getCurrentUser();
         setScopeEvents();
-
 
         function setScopeEvents(){
             EventsService
@@ -22,7 +21,8 @@
                 });
         }
 
-        function create(newEvent){
+        function createEvent(newEvent){
+            console.log("creating" + newEvent);
             newEvent.adminId = currentUser._id;
             EventsService
                 .createEvent(newEvent)
@@ -36,17 +36,29 @@
     }
 
     function EventDetailsController($scope, $routeParams, EventsService, ExpensesService){
+        $scope.createExpense = createExpense;
         var eventId = $routeParams.eventId;
-        console.log(eventId);
-        EventsService
-            .findEventsById(eventId)
-            .then(function(response){
-                $scope.event = response.data;
+        setScopeExpenses();
 
-                console.log($scope.event);
-                $scope.expenses = getExpensesById($scope.event.expenses);
+        function createExpense(newExpense){
+            ExpensesService
+                .createExpense(eventId, newExpense)
+                .then(function(response){
+                    console.log("createExpense() > " + JSON.stringify(response.data));
+                    $scope.newExpense = null;
+                    setScopeExpenses()
+                });
+        }
 
-            });
+        function setScopeExpenses(){
+            EventsService
+                .findEventsById(eventId)
+                .then(function(response){
+                    $scope.event = response.data;
+                    $scope.expenses = getExpensesById($scope.event.expenses);
+                });
+        }
+
 
         function getExpensesById(expensesId){
             var expenses = [];
@@ -59,7 +71,6 @@
             }
 
             return expenses;
-
         }
     }
 

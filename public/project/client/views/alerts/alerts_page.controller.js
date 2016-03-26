@@ -8,10 +8,11 @@
 
     function AlertsPageController($scope, AlertsService, UserService){
         var currentUser = UserService.getCurrentUser();
-        $scope.alerts = AlertsService.findAlertsByPayeeId(currentUser._id, render);
-    }
 
-    function render(response){
-        return response;
+        AlertsService
+            .findAlertsByPayeeId(currentUser._id)
+            .then(function(response){
+                $scope.alerts = response.data;
+            });
     }
 })();

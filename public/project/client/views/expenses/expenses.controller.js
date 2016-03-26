@@ -23,13 +23,23 @@
                 paymentRequestIds: parsePayments($scope.expense.paymentRequestIds)
             };
 
-            newExpense = ExpensesService.createExpense(newExpense, render)
+            ExpensesService
+                .createExpense(newExpense)
+                .then(function(response){
+                    if(!response.data){
+                        $scope.error = "Expense was not created";
+                    }
 
-            if(!newExpense){
-                $scope.error = "Expense was not created";
-            }
+                    updateScope();
+                });
+        }
 
-            $scope.expense = ExpensesService.findAllExpenses(render);
+        function updateScope(){
+            ExpensesService
+                .findAllExpenses()
+                .then(function(response){
+                    $scope.expense = response.data;
+                });
         }
 
         function updateExpense(){

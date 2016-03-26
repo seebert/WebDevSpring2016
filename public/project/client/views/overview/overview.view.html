@@ -10,7 +10,7 @@
             <br>
             <h2 class="page-header">
                 Live Events
-                <button class="btn btn-default pull-right">
+                <button class="btn btn-default pull-right"  data-toggle="modal" data-target="#createEvent" >
                         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Create new event
                 </button>
             </h2>
@@ -22,3 +22,5 @@
         </div>
     </div>
 </div>
+
+<div ng-include src="'views/events/events_new.view.html'"></div>
