@@ -8,6 +8,8 @@
 
     function FieldController($scope, FieldService, $routeParams) {
         $scope.addField = addField;
+        $scope.editField = editField;
+        $scope.editComplete = editComplete;
         $scope.removeField = removeField;
         $scope.updateField = updateField;
 
@@ -44,6 +46,8 @@
                 .then(function(response){
                     $scope.fields = response.data;
                 });
+
+            $scope.field = null;
         }
 
         function updateField(field, updateField){
@@ -51,7 +55,18 @@
                 .updateField(formId, field._id, updateField)
                 .then(function(response){
                     $scope.fields = updateFieldsView(formId);
-                })
+                });
+
+            $scope.field = null;
+        }
+
+
+        function editField(field){
+            $scope.field = field;
+        }
+
+        function editComplete(){
+            $scope.field = null;
         }
         function addField(fieldType){
             var newField;
