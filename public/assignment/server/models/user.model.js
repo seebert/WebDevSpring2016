@@ -2,7 +2,11 @@
  * Created by Tiffanys on 3/15/16.
  */
 var mock = require("./user.mock.json");
-module.exports = function(app, db, mongoose){
+var q = require("q");
+module.exports = function(db, mongoose){
+    // load user schema
+    var UserSchema = require("./user.schema.server.js")(mongoose);
+    var User = mongoose.model("User", UserSchema);
 
     var api = {
         createUser: createUser,
@@ -11,15 +15,26 @@ module.exports = function(app, db, mongoose){
         findUserByUsername : findUserByUsername,
         findUserByCredentials : findUserByCredentials,
         updateUser :updateUser,
-        deleteUserById : deleteUserById
+        deleteUserById : deleteUserById,
+        getMongooseModel: getMongooseModel
     };
 
     return api;
 
+    function getMongooseModel(){
+        return User;
+    }
+
     function createUser(user) {
-        user._id = "ID_" + (new Date()).getTime();
-        mock.push(user);
-        return user;
+        var deferred = q.defer();
+        User.create(user, function(err,doc){
+            if(err){
+                deferred.reject(err);
+            }else{
+                deferred.resolve(doc);
+            }
+        });
+        return deferred.promise;
     }
 
     function findAllUsers(){
@@ -27,12 +42,13 @@ module.exports = function(app, db, mongoose){
     }
 
     function findUserById(id) {
-        for (var u in mock) {
+        /*for (var u in mock) {
             if (mock[u]._id === id) {
                 return mock[u];
             }
         }
-        return null;
+        return null;*/
+        return User.findById(id);
     }
     function findUserByUsername(username) {
         for (var u in mock) {
@@ -44,14 +60,29 @@ module.exports = function(app, db, mongoose){
     }
 
     function findUserByCredentials(username, password) {
+        var deferred = q.defer();
 
-        for (var u in mock) {
+        User.findOne(
+            {username: username,
+             password : password},
+
+            function(err, doc){
+                if (err){
+                    deferred.reject(err);
+                } else{
+                    deferred.resolve(doc);
+                }
+            }
+        );
+
+        return deferred.promise;
+/*        for (var u in mock) {
             if (mock[u].username === username &&
                 mock[u].password === password) {
                 return mock[u];
             }
         }
-        return null;
+        return null;*/
     }
 
     function updateUser(userId, user) {

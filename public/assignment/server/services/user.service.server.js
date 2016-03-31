@@ -17,10 +17,16 @@ module.exports = function(app, userModel){
     }
 
     function createUser(req, res){
-        console.log("Create user");
-        userModel.createUser(req.body);
-        var users = userModel.findAllUsers();
-        res.json(users);
+        var user = req.body;
+        userModel.createUser(user)
+            .then(
+                function(user){
+                    res.json(user);
+                },
+                function(err){
+                    res.status (400).send ( err);
+                }
+            );
     }
 
     function getUser(req, res){
@@ -47,9 +53,17 @@ module.exports = function(app, userModel){
         console.log("Get user by credentials");
         var username = req.query.username;
         var password = req.query.password;
-        var user = userModel.findUserByCredentials(username, password);
-
-        res.json(user);
+        userModel
+            .findUserByCredentials(username,password)
+            .then(
+                function(user){
+                    delete user.password;
+                    res.json(user);
+                },
+                function (err){
+                    res.status(400).send(err);
+                }
+            );
     }
 
     function getAllUsers(req, res){
