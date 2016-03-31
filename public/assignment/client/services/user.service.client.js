@@ -36,7 +36,7 @@
         }
 
         function updateUser(userId, user) {
-            return $http.put("/api/assignment/user/"+userId);
+            return $http.put("/api/assignment/user/"+userId, user);
         }
 
         function deleteUserById(userId) {
