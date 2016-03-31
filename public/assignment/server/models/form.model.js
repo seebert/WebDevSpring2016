@@ -20,6 +20,7 @@ module.exports = function(app, db) {
 
     function createForm(form) {
         form._id = "ID_" + (new Date()).getTime();
+        form.fields = [];
         mock.push(form);
         return form;
     }
