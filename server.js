@@ -3,6 +3,7 @@ var bodyParser = require('body-parser');
 var multer = require('multer');
 var cookieParser = require('cookie-parser');
 var mongoose      = require('mongoose');
+var db = mongoose.connect('mongodb://localhost/assignment');
 var app = express();
 
 
