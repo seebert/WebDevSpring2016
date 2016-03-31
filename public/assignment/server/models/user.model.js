@@ -1,7 +1,6 @@
 /**
  * Created by Tiffanys on 3/15/16.
  */
-var mock = require("./user.mock.json");
 var q = require("q");
 module.exports = function(db, mongoose){
     // load user schema
@@ -38,72 +37,35 @@ module.exports = function(db, mongoose){
     }
 
     function findAllUsers(){
-        return mock;
+        return User.find();
     }
 
     function findUserById(id) {
-        /*for (var u in mock) {
-            if (mock[u]._id === id) {
-                return mock[u];
-            }
-        }
-        return null;*/
         return User.findById(id);
     }
     function findUserByUsername(username) {
-        for (var u in mock) {
-            if (mock[u].username === username) {
-                return mock[u];
-            }
-        }
-        return null;
+        return User.findOne(
+                {username: username});
     }
 
     function findUserByCredentials(username, password) {
-        var deferred = q.defer();
-
-        User.findOne(
-            {username: username,
-             password : password},
-
-            function(err, doc){
-                if (err){
-                    deferred.reject(err);
-                } else{
-                    deferred.resolve(doc);
-                }
+        return User.findOne(
+            {
+                username: username,
+                password: password
             }
         );
-
-        return deferred.promise;
-/*        for (var u in mock) {
-            if (mock[u].username === username &&
-                mock[u].password === password) {
-                return mock[u];
-            }
-        }
-        return null;*/
     }
 
     function updateUser(userId, user) {
-        for (var u in mock) {
-            if (mock[u]._id === userId) {
-                mock[u].firstName = user.firstName;
-                mock[u].lastName = user.lastName;
-                mock[u].password = user.password;
-                return mock[u];
-            }
-        }
-        return null;
+        return User
+            .findOneAndUpdate (
+                {_id: userId},
+                {$set: user});
     }
 
     function deleteUserById(userId) {
-        for (var u in mock) {
-            if (mock[u]._id === userId) {
-                mock.splice(u, 1);
-            }
-        }
-        return mock;
+        return User.remove({_id: userId});
     }
 
 };
