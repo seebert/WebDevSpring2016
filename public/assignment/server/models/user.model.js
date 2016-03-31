@@ -2,7 +2,7 @@
  * Created by Tiffanys on 3/15/16.
  */
 var mock = require("./user.mock.json");
-module.exports = function(app, db){
+module.exports = function(app, db, mongoose){
 
     var api = {
         createUser: createUser,

@@ -2,7 +2,7 @@
  * Created by Tiffanys on 3/15/16.
  */
 var mock = require("./form.mock.json");
-module.exports = function(app, db) {
+module.exports = function(app, db,mongoose) {
     var api = {
         createForm: createForm,
         createFieldForForm: createFieldForForm,
