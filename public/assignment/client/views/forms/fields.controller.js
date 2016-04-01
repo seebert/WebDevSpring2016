@@ -54,7 +54,7 @@
             FieldService
                 .updateField(formId, field._id, updateField)
                 .then(function(response){
-                    $scope.fields = updateFieldsView(formId);
+                    updateFieldsView(formId);
                 });
 
             $scope.field = null;
