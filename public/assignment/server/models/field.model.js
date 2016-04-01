@@ -2,13 +2,15 @@
  * Created by Tiffanys on 3/31/16.
  */
 
-module.exports = function(db,mongoose) {
+module.exports = function(mongoose, formModel) {
     var FieldSchema = require("./field.schema.server.js")(mongoose);
     var Field = mongoose.model("Field", FieldSchema);
+    var Form = formModel.getMongooseModel();
 
     var api = {
         createField: createField,
         findFieldById: findFieldById,
+        findFieldByForm : findFieldByForm,
         updateField : updateField,
         deleteFieldById : deleteFieldById
     };
@@ -20,8 +22,13 @@ module.exports = function(db,mongoose) {
     }
 
     function findFieldById(id){
-
     }
+
+
+    function findFieldByForm(formId){
+        return Form.findById(formId).select("fields");
+    }
+
     function updateField(formId, fieldId, field){
         for (var u in mock) {
             if (mock[u]._id == formId) {
