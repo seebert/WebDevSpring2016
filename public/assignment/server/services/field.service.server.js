@@ -13,17 +13,10 @@ module.exports = function (app, formModel, fieldModel) {
         var formId = req.params.formId;
         var field = req.body;
         fieldModel
-            .createField(field)
+            .createField(formId, field)
             .then(
                 function (field) {
-                    formModel
-                        .updateFormFields(formId, field)
-                        .then(function (field) {
-                                res.json(field);
-                            },
-                            function (err) {
-                                res.status(400).send(err);
-                            });
+                    res.json(field);
                 },
                 function (err) {
                     res.status(400).send(err);

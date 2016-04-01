@@ -17,11 +17,16 @@ module.exports = function(mongoose, formModel) {
 
     return api;
 
-    function createField(field) {
-        return Field.create(field);
+    function createField(formId, field) {
+        return Form.findById(formId)
+            .then(function(form){
+                form.fields.push(field);
+                return form.save();
+            })
     }
 
     function findFieldById(id){
+        return Field.findById(id);
     }
 
 
