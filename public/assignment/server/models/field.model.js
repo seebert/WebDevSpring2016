@@ -12,7 +12,7 @@ module.exports = function(mongoose, formModel) {
         findFieldById: findFieldById,
         findFieldByForm : findFieldByForm,
         updateField : updateField,
-        deleteFieldById : deleteFieldById
+        deleteField : deleteField
     };
 
     return api;
@@ -34,38 +34,42 @@ module.exports = function(mongoose, formModel) {
         return Form.findById(formId).select("fields");
     }
 
-    function updateField(formId, fieldId, field){
-        for (var u in mock) {
-            if (mock[u]._id == formId) {
-                for(var f in mock[u].fields){
-                    if(mock[u].fields[f]._id == fieldId){
-                        if(field.label)
-                            mock[u].fields[f].label = field.label;
+    function updateField(formId, fieldId, fieldObj){
+        return Form.findById(formId)
+            .then(function(form){
+                var field = form.fields.id(fieldId);
 
-                        if(field.type)
-                            mock[u].fields[f].type = field.type;
+                if(fieldObj.label)
+                    field.label = fieldObj.label;
 
-                        if(field.placeholder)
-                            mock[u].fields[f].placeholder = field.placeholder;
+                if(fieldObj.type)
+                    field.type = fieldObj.type;
 
-                        if(field.options){
-                            var updateOptions = [];
-                            var options = field.options.split("\n");
-                            for(var o in options) {
-                                var label_value_pairs = options[o].split(";");
-                                updateOptions.push({"label": label_value_pairs[0], "value": label_value_pairs[1]});
-                            }
-                            mock[u].fields[f].options = updateOptions;
-                        }
+                if(fieldObj.placeholder)
+                    field.placeholder = fieldObj.placeholder;
 
-                        return mock[u].fields[f];
+                if(fieldObj.options){
+                    var updateOptions = [];
+                    var options = fieldObj.options.split("\n");
+                    for(var o in options) {
+                        var label_value_pairs = options[o].split(";");
+                        updateOptions.push({"label": label_value_pairs[0], "value": label_value_pairs[1]});
                     }
+                    field.options = updateOptions;
                 }
-            }
-        }
-        return null;
+
+                return form.save();
+            });
     }
 
-    function deleteFieldById(){
+    function deleteField(formId, fieldId){
+        return Form
+        .findById(formId)
+        .then(
+            function(form){
+                form.fields.id(fieldId).remove();
+                return form.save();
+            }
+        );
     }
 }

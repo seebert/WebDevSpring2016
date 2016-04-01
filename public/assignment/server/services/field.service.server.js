@@ -40,39 +40,44 @@ module.exports = function (app, formModel, fieldModel) {
     function getFieldById(req, res) {
         var formId = req.params.formId;
         var fieldId = req.params.fieldId;
-        var fields = fieldModel.findFieldById(formId, fieldId);
-
-        for (var f in fields) {
-            if (fields[f]._id === fieldId) {
-                res.json(fields[f]);
-            }
-        }
-
-        return null;
+        fieldModel
+            .findFieldById(formId, fieldId)
+            .then(
+                function (field) {
+                    res.json(field);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                });
     }
 
     function updateField(req, res) {
         var formId = req.params.formId;
         var fieldId = req.params.fieldId;
         var field = req.body;
-        var updatedField = formModel.updateField(formId, fieldId, field);
-
-        res.json(updatedField);
+        fieldModel
+            .updateField(formId, fieldId, field)
+            .then(
+                function (stats) {
+                    res.send(200);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                });
     }
 
     function deleteField(req, res) {
         var formId = req.params.formId;
         var fieldId = req.params.fieldId;
-        var form = formModel.findFormById(formId);
-
-        for (var f in form.fields) {
-            if (fields(f)._id === fieldId) {
-                form.fields.splice(f, 1);
-            }
-        }
-
-        formModel.updateFormById(formId, form);
-        res.json(null);
+        fieldModel
+            .deleteField(formId, fieldId)
+            .then(
+                function (stats) {
+                    res.send(200);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                });
     }
 
 }

@@ -178,7 +178,7 @@
       </div>
       <div class="modal-body">
         <label for="editTextAreaLabel" class="fields-label ">Label: </label>
-        <input type="text" id="editTextAreaLabel"  ng-model="label" class="form-control form-fields" placeholder="Label Name">
+        <input type="text" id="editTextAreaLabel"  ng-model="label" class="form-control form-fields" placeholder="{{field.label}}">
         <label for="editTextAreaPlaceholder" class="fields-label ">Placeholder: </label>
         <input type="text" id="editTextAreaPlaceholder"  ng-model="placeholder" class="form-control form-fields" placeholder="Placeholder">
       </div>
@@ -199,7 +199,7 @@
       </div>
       <div class="modal-body">
         <label for="editDateLabel" class="fields-label ">Label: </label>
-        <input type="text" id="editDateLabel"  ng-model="label" class="form-control form-fields" placeholder="Label Name">
+        <input type="text" id="editDateLabel"  ng-model="label" class="form-control form-fields" placeholder="{{field.label}}">
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" ng-click="updateField(field, {label: label, type:'DATE'})" data-dismiss="modal">Ok</button>
