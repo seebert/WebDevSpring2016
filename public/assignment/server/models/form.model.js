@@ -1,10 +1,8 @@
 /**
  * Created by Tiffanys on 3/15/16.
  */
-var mock = require("./form.mock.json");
 module.exports = function(db,mongoose) {
     var FormSchema = require("./form.schema.server.js")(mongoose);
-    var FieldSchema = require("./field.schema.server.js")(mongoose);
     var Form = mongoose.model("Form", FormSchema);
 
     var api = {
@@ -22,18 +20,6 @@ module.exports = function(db,mongoose) {
     function createForm(form) {
         return Form.create(form);
     }
-
-    function createFieldForForm(formId, field) {
-        field._id = "ID_" + (new Date()).getTime();
-        for(var f in mock){
-            if(mock[f]._id == formId){
-                mock[f].fields.push(field);
-                return mock[f];
-            }
-        }
-        return null;
-    }
-
 
     function findAllForms(){
         return Form.find();
