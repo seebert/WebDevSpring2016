@@ -7,15 +7,20 @@ module.exports = function(db,mongoose) {
 
     var api = {
         createForm: createForm,
-        createFieldForForm: createFieldForForm,
         findAllForms : findAllForms,
         findAllFormsByUserId : findAllFormsByUserId,
         findFormById : findFormById,
         updateFormById : updateFormById,
-        deleteFormById : deleteFormById
+        updateFormFields : updateFormFields,
+        deleteFormById : deleteFormById,
+        getMongooseModel: getMongooseModel
     };
 
     return api;
+
+    function getMongooseModel(){
+        return Form;
+    }
 
     function createForm(form) {
         return Form.create(form);
@@ -35,6 +40,13 @@ module.exports = function(db,mongoose) {
 
     function updateFormById(formId, form){
         return Form.findOneAndUpdate({_id:formId}, {$set:form});
+    }
+
+    function updateFormFields(formId, field){
+        return Form.findByIdAndUpdate(
+            {_id:formId},
+            {$push: {"fields" : field}}
+        )
     }
 
     function deleteFormById(formId){
