@@ -2,10 +2,13 @@
  * Created by Tiffanys on 3/15/16.
  */
 var q = require("q");
+var passport      = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
 module.exports = function(db, mongoose){
     // load user schema
     var UserSchema = require("./user.schema.server.js")(mongoose);
     var User = mongoose.model("User", UserSchema);
+    passport.use(new LocalStrategy(findUserByCredentials));
 
     var api = {
         createUser: createUser,
