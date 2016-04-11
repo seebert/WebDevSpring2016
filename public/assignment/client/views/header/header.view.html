@@ -30,7 +30,7 @@
                 </li>
                 <li ng-class="{'active': $location.url()=='/profile'}"
                     ng-show="currentUser">
-                    <a href="#/profile">
+                    <a href="#/profile/{{currentUser.username}}">
                         {{currentUser.username}}
                     </a>
                 </li>

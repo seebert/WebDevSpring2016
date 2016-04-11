@@ -5,8 +5,8 @@
                 Home
             </a>
         </li>
-        <li ng-class="{'active': $location.url()=='/profile'}" ng-show="currentUser">
-            <a href="#/profile">
+        <li ng-class="{'active': $location.url()=='/profile/'}" ng-show="currentUser">
+            <a href="#/profile/{{currentUser.username}}">
                 Profile
             </a>
         </li>

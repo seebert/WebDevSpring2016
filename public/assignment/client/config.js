@@ -23,7 +23,7 @@
                 templateUrl:"views/users/login.view.html",
                 controller:"LoginController"
             })
-            .when("/profile", {
+            .when("/profile/:username", {
                 templateUrl:"views/users/profile.view.html",
                 controller:"ProfileController"
             })

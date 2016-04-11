@@ -18,14 +18,13 @@
             UserService
                 .login($scope.user)
                 .then(function(response){
-                    if(!response.data){
+                    var user = response.data;
+                    UserService.setCurrentUser(user);
+                    $location.url("/profile/"+user.username);
+                },
+                    function(err) {
                         $scope.message = "Incorrect username or password";
-                        return;
-                    }
-
-                    UserService.setCurrentUser(response.data);
-                    $location.url("/profile");
-                });
+                    });
         }
     }
 })();

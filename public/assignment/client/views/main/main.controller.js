@@ -9,4 +9,6 @@
     function MainController($location, $scope){
         $scope.$location = $location;
     }
+
+
 })();

@@ -36,8 +36,8 @@
                         return;
                     }
 
-                    UserService.setCurrentUser(response.data);
-                    $location.url("/profile");
+                    UserService.setCurrentUser(user);
+                    $location.url("/profile/"+ user.username);
                 });
         }
 
