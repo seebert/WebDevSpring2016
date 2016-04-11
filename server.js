@@ -3,6 +3,7 @@ var bodyParser = require('body-parser');
 var multer = require('multer');
 var cookieParser = require('cookie-parser');
 var mongoose      = require('mongoose');
+var passport      = require('passport');
 var db = mongoose.connect('mongodb://localhost/assignment');
 var app = express();
 
@@ -15,6 +16,8 @@ app.use(multer());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use(passport.initialize());
+app.use(passport.session());
 
 require("./public/assignment/server/app.js")(app, db, mongoose);
 require("./public/project/server/app.js")(app);
