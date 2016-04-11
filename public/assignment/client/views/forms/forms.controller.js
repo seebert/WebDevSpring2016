@@ -8,7 +8,6 @@
 
     function FormController($scope, FormService, UserService){
         var currentUser = UserService.getCurrentUser();
-        console.log(JSON.stringify(currentUser));
         $scope.addForm = addForm;
         $scope.updateForm = updateForm;
         $scope.deleteForm = deleteForm;
