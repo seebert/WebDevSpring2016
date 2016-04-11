@@ -16,7 +16,7 @@
             }
 
             UserService
-                .findUserByCredentials($scope.user.username, $scope.user.password)
+                .login($scope.user)
                 .then(function(response){
                     if(!response.data){
                         $scope.message = "Incorrect username or password";
