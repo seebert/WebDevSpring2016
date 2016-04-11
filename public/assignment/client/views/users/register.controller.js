@@ -28,7 +28,7 @@
             }
 
             UserService
-                .createUser($scope.user)
+                .register($scope.user)
                 .then(function(response){
                     var user = response.data;
                     if(!user){
