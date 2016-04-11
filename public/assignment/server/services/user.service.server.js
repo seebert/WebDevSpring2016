@@ -4,7 +4,7 @@
 var passport      = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 module.exports = function(app, userModel){
-    var auth = authorized;
+    var auth = authenticated;
     app.post('/api/assignment/login',   passport.authenticate('local'), login);
     app.post('/api/assignment/user',        auth,   createUser);
     app.post('/api/assignment/logout',              logout);
