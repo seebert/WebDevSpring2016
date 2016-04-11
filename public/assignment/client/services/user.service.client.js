@@ -8,6 +8,9 @@
 
     function UserService($rootScope, $http) {
         var api = {
+            login: login,
+            logout: logout,
+            register: register,
             createUser: createUser,
             findAllUsers : findAllUsers,
             findUserByCredentials: findUserByCredentials,
@@ -18,6 +21,18 @@
             setCurrentUser : setCurrentUser
         };
         return api;
+
+        function logout() {
+            return $http.post("/api/assignment/logout");
+        }
+
+        function register(user) {
+            return $http.post("/api/assignment/register", user);
+        }
+
+        function login(user) {
+            return $http.post("/api/assignment/login", user);
+        }
 
         function createUser(user) {
             return $http.post("/api/assignment/user", user);
