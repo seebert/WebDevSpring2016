@@ -10,10 +10,9 @@ module.exports = function(app, userModel){
     app.post('/api/assignment/logout',              logout);
     app.post('/api/assignment/register',            register);
     app.get('/api/assignment/loggedIn',             loggedin);
-    app.get('/api/assignment/user',         auth,   getUser);
+    app.get('/api/assignment/user',         auth,   getAllUsers);
     app.put('/api/assignment/user/:id',     auth,   updateUser);
     app.delete('/api/assignment/user/:id',  auth,   deleteUser);
-
 
     passport.use(new LocalStrategy(localStrategy));
     passport.serializeUser(serializeUser);
@@ -35,6 +34,7 @@ module.exports = function(app, userModel){
 
     function login(req, res) {
         var user = req.user;
+        req.session.user = req.user;
         res.json(user);
     }
 
@@ -173,11 +173,11 @@ module.exports = function(app, userModel){
         var userId =  req.params.id;
 
         if(!isAdmin(req.user)) {
-            delete newUser.roles;
+            delete user.roles;
         }
 
-        if(typeof newUser.roles == "string") {
-            newUser.roles = newUser.roles.split(",");
+        if(typeof user.roles == "string") {
+            user.roles = user.roles.split(",");
         }
 
         userModel
@@ -242,5 +242,12 @@ module.exports = function(app, userModel){
                     done(err, null);
                 }
             );
+    }
+
+    function isAdmin(user) {
+        if(user.roles.indexOf("admin") >= 0) {
+            return true
+        }
+        return false;
     }
 };
