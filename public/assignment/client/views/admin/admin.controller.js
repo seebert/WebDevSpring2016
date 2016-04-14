@@ -13,6 +13,7 @@
         $scope.update = update;
         $scope.add    = add;
         $scope.select = select;
+        $scope.sort = sort;
 
         function init() {
             AdminService
@@ -39,7 +40,18 @@
         {
             AdminService
                 .createUser(user)
-                .then(handleSuccess, handleError);
+                .then(init(), handleError);
+        }
+
+        function sort(attribute)
+        {
+            $scope.sortAttribute = attribute;
+            $scope.reverse = !$scope.reverse;
+            if($scope.reverse){
+                $scope.orderGliphy = "glyphicon glyphicon-triangle-top";
+            }else{
+                $scope.orderGliphy = "glyphicon glyphicon-triangle-bottom";
+            }
         }
 
         function select(user)

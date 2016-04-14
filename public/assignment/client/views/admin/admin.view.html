@@ -3,25 +3,50 @@
         <h1>Admin</h1>
         <h2>User List</h2>
         <table class="table table-striped">
+            <tr  ng-switch="sortAttribute">
+                <th ng-click="sort('username')">
+                    <span ng-switch-when="username" class="{{orderGliphy}}"></span>
+                    Username
+                </th>
+                <th>Password</th>
+                <th ng-click="sort('firstName')">
+                    <span ng-switch-when="firstName" class="{{orderGliphy}}"></span>
+                    First Name
+                </th>
+                <th ng-click="sort('lastName')">
+                    <span ng-switch-when="lastName" class="{{orderGliphy}}"></span>
+                    Last Name
+                </th>
+                <th>Roles</th>
+                <th>Actions</th>
+            </tr>
             <tr>
                 <td><input ng-model="user.username" class="form-control" placeholder="username"/></td>
                 <td><input ng-model="user.password" class="form-control" type="password" placeholder="password"/></td>
                 <td><input ng-model="user.firstName" class="form-control" placeholder="first"/></td>
                 <td><input ng-model="user.lastName" class="form-control" placeholder="last"/></td>
                 <td><input ng-model="user.roles" class="form-control" placeholder="roles"/></td>
-                <td><button ng-click="add(user)" class="btn btn-primary">&plus;</button>
-                <td><button ng-click="update(user)" class="btn btn-success">&check;</button>
+                <td><button ng-click="add(user)" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-plus"></span>
+                </button>
+                <td><button ng-click="update(user)" class="btn btn-success">
+                    <span class="glyphicon glyphicon-ok"></span>
+                </button>
             </tr>
 
             </tr>
-            <tr ng-repeat="user in users">
+            <tr ng-repeat="user in users | orderBy : sortAttribute : reverse">
                 <td>{{user.username}}</td>
                 <td>&nbsp;</td>
                 <td>{{user.firstName}}</td>
                 <td>{{user.lastName}}</td>
                 <td>{{user.roles}}</td>
-                <td><button ng-click="remove(user)" class="btn btn-danger">X</button>
-                <td><button ng-click="select(user)" class="btn btn-success">...</button>
+                <td><button ng-click="remove(user)" class="btn btn-danger">
+                    <span class="glyphicon glyphicon-remove"></span>
+                </button>
+                <td><button ng-click="select(user)" class="btn btn-success">
+                    <span class="glyphicon glyphicon-cog"></span>
+                </button>
             </tr>
         </table>
     </div>
