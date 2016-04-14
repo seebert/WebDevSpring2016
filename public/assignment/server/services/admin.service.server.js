@@ -47,7 +47,6 @@ module.exports = function(app, userModel){
                 .findAllUsers()
                 .then(
                     function(users){
-                        console.log(users);
                         res.json(users);
                     },
                     function (err){
