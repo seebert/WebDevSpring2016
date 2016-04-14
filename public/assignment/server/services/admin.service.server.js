@@ -73,8 +73,8 @@ module.exports = function(app, userModel){
         var user = req.body;
         var userId =  req.params.id;
 
-        if(typeof newUser.roles == "string") {
-            newUser.roles = newUser.roles.split(",");
+        if(typeof user.roles == "string") {
+            user.roles = user.roles.split(",");
         }
 
         userModel
