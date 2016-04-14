@@ -12,16 +12,15 @@
             findAllUsers : findAllUsers,
             findUserByUsername: findUserByUsername,
             updateUser: updateUser,
-            deleteUserById : deleteUserById
+            deleteUser : deleteUser
         };
         return api;
 
         function createUser(user) {
             return $http.post("/api/assignment/admin/user", user);
-        }F
+        }
 
         function findAllUsers(){
-            console.log("inside admin service");
             return $http.get("/api/assignment/admin/user");
         }
 
@@ -33,7 +32,7 @@
             return $http.put("/api/assignment/admin/user/"+userId, user);
         }
 
-        function deleteUserById(userId) {
+        function deleteUser(userId) {
             return $http.delete("/api/assignment/admin/user/"+userId);
         }
     }

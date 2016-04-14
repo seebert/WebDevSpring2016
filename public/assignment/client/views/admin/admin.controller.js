@@ -25,7 +25,7 @@
         {
             AdminService
                 .deleteUser(user._id)
-                .then(handleSuccess, handleError);
+                .then(init(), handleError);
         }
 
         function update(user)
