@@ -16,18 +16,13 @@
             }
 
             UserService
-                .loginUser($scope.user.username, $scope.user.password)
+                .login($scope.user)
                 .then(function(response){
                     var user = response.data;
-
-                    console.log("login() > " + JSON.stringify(user));
-                    if(!user){
-                        $scope.message = "Incorrect username or password";
-                        return;
-                    }
-
                     UserService.setCurrentUser(user);
                     $location.url("/overview");
+                }, function(err) {
+                    $scope.message = "Incorrect username or password";
                 });
         }
     }

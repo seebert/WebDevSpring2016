@@ -99,49 +99,6 @@ module.exports = function(app, userModel){
                 );
         }
 
-        /*function getUser(req, res){
-            if(req.query.username){
-                if(req.query.password){
-                    getUserByCredentials(req,res);
-                }else{
-                    getUserByUsername(req, res);
-                }
-            }else{
-                getAllUsers(req, res);
-            }
-        }
-
-        function getUserByUsername(req,res){
-            console.log("Get user by username");
-            var username = req.query.username;
-            userModel
-                .findUserByUsername(username)
-                .then(
-                    function(user){
-                        res.json(user);
-                    },
-                    function (err){
-                        res.status(400).send(err);
-                    });
-        }
-
-    function getUserByCredentials(req,res){
-        console.log("Get user by credentials");
-        var username = req.query.username;
-        var password = req.query.password;
-        userModel
-            .findUserByCredentials(username,password)
-            .then(
-                function(user){
-                    delete user.password;
-                    res.json(user);
-                },
-                function (err){
-                    res.status(400).send(err);
-                }
-            );
-    }*/
-
     function getAllUsers(req, res){
         if(isAdmin(req.user)){
             userModel
