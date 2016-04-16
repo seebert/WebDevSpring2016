@@ -1,9 +1,9 @@
-module.exports = function(app) {
-    var alertModel    = require("./models/alert.model.js")();
-    var eventModel   = require("./models/event.model.js")();
-    var expenseModel   = require("./models/expense.model.js")();
-    var paymentRequestModel   = require("./models/paymentRequest.model.js")();
-    var userModel   = require("./models/user.model.js")();
+module.exports = function(app,db,  mongoose) {
+    var alertModel    = require("./models/alert.model.js")(mongoose);
+    var eventModel   = require("./models/event.model.js")(mongoose);
+    var expenseModel   = require("./models/expense.model.js")(mongoose);
+    var paymentRequestModel   = require("./models/paymentRequest.model.js")(mongoose);
+    var userModel   = require("./models/user.model.js")(mongoose);
     var searchModel   = require("./models/search.model.js")();
 
     var alertService  = require("./services/alert.service.server.js")(app, alertModel);
