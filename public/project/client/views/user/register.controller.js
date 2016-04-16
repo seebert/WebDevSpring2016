@@ -28,7 +28,7 @@
             }
 
            UserService
-               .createUser($scope.user)
+               .register($scope.user)
                .then(function(response){
                    var newUser = response.data;
                    console.log("register() > Registering user " + JSON.stringify(newUser));
