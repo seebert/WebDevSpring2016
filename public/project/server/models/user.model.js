@@ -1,8 +1,11 @@
 /**
  * Created by Tiffanys on 3/23/16.
  */
-var mock = require("./user.mock.json");
-module.exports = function(app, db) {
+var q = require("q");
+module.exports = function(mongoose) {
+    var UserSchema = require("./user.schema.server.js")(mongoose);
+    var ProjectUser = mongoose.model("ProjectUser", UserSchema);
+
     var api = {
         createUser: createUser,
         findAllUsers : findAllUsers,
@@ -10,76 +13,58 @@ module.exports = function(app, db) {
         findUserByUsername : findUserByUsername,
         findUserByCredentials: findUserByCredentials,
         updateUser: updateUser,
-        deleteUserById : deleteUserById
+        deleteUserById : deleteUserById,
+        getMongooseModel : getMongooseModel
     };
 
     return api;
 
+    function getMongooseModel(){
+        return ProjectUser;
+    }
+
     function createUser(user) {
-        var user = {
-            username: user.username,
-            password: user.password,
-            email: user.email,
-            firstName: user.firstName,
-            lastName: user.lastName,
-            _id : (new Date).getTime()
-        };
-        mock.push(user);
-        return user;
+        var deferred = q.defer();
+        ProjectUser.create(user, function(err,doc){
+            if(err){
+                deferred.reject(err);
+            }else{
+                deferred.resolve(doc);
+            }
+        });
+        return deferred.promise;
     }
 
     function findAllUsers(){
-        return mock;
+        return ProjectUser.find();
     }
 
     function findUserById(id) {
-        for (var u in mock) {
-            if (mock[u]._id == id) {
-                return mock[u];
-            }
-        }
-        return null;
+        return ProjectUser.findById(id);
     }
+
     function findUserByUsername(username) {
-        for (var u in mock) {
-            if (mock[u].username == username) {
-                return mock[u];
-            }
-        }
-        return null;
+        return ProjectUser.findOne(
+            {username: username});
     }
 
     function findUserByCredentials(username, password) {
-
-        for (var u in mock) {
-            if (mock[u].username == username &&
-                mock[u].password == password) {
-                return mock[u];
+        return ProjectUser.findOne(
+            {
+                username: username,
+                password: password
             }
-        }
-        return null;
+        );
     }
 
     function updateUser(userId, user) {
-        for (var u in mock) {
-            if (mock[u]._id == userId) {
-                mock[u].firstName = user.firstName;
-                mock[u].lastName = user.lastName;
-                mock[u].username = user.username;
-                mock[u].password = user.password;
-                mock[u].email = user.email;
-                return mock[u];
-            }
-        }
-        return null;
+        return ProjectUser
+            .findOneAndUpdate (
+                {_id: userId},
+                {$set: user});
     }
 
     function deleteUserById(userId) {
-        for (var u in mock) {
-            if (mock[u]._id == userId) {
-                mock.splice(u, 1);
-            }
-        }
-        return mock;
+        return ProjectUser.remove({_id: userId});
     }
 };
