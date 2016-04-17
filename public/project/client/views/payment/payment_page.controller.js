@@ -10,7 +10,7 @@
         var currentUser = UserService.getCurrentUser();
 
         PaymentRequestsService
-            .findPaymentRequestByPayerId(currentUser._id)
+            .findPaymentRequestByUsername(currentUser.username)
             .then(function(response){
                 $scope.paymentRequests = response.data;
             });

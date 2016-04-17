@@ -1,10 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<div id="addPaymentRequest" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Request a payment for {{$parent.selectedExpense.title}}</h4>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <label for="title">Username:</label>
+                    <input ng-model="$parent.newPayment.payerUsername" type="text" class="form-control" id="title" placeholder="ex. alice">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" ng-click="$parent.createPaymentRequest($parent.newPayment, $parent.selectedExpense)" data-dismiss="modal">Request</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
 
-</body>
-</html>
+    </div>
+</div>

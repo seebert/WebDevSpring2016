@@ -4,7 +4,8 @@
 module.exports = function (mongoose) {
     // use mongoose to declare a paymentRequest schema
     var PaymentRequestSchema = mongoose.Schema({
-        payerId : Number,
+        expenseId: mongoose.Schema.Types.ObjectId,
+        payerUsername : String,
         amountOwed: Number
     }, {collection: 'paymentRequest'});
     return PaymentRequestSchema;
