@@ -14,10 +14,10 @@
                 </button>
             </p>
             <p> Payment(s) pending from:
-                <button class="btn btn-default" ng-repeat="payment in e.paymentRequestIds" >
-                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span> {{payment}}
+                <button class="btn btn-default" ng-repeat="user in e.paymentRequestUsers" >
+                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span> {{user}}
                 </button>
-                <button class="btn btn-info">
+                <button class="btn btn-info" ng-click="selectExpense(e)" data-toggle="modal" data-target="#addPaymentRequest">
                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                 </button>
             </p>
@@ -28,3 +28,5 @@
 
 
 <div ng-include src="'views/expenses/expenses_new.view.html'"></div>
+<div ng-include src="'views/payment/payment_new.view.html'"></div>
+

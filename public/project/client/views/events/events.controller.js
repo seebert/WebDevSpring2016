@@ -41,8 +41,10 @@
 
     }
 
-    function EventDetailsController($scope, $routeParams, EventsService, ExpensesService){
+    function EventDetailsController($scope, $routeParams, EventsService, ExpensesService, PaymentRequestsService){
         $scope.createExpense = createExpense;
+        $scope.createPaymentRequest = createPaymentRequest;
+        $scope.selectExpense = selectExpense;
         var eventId = $routeParams.eventId;
         setScopeExpenses();
 
@@ -55,6 +57,20 @@
                     setScopeExpenses()
                 });
         }
+
+        function selectExpense(expense){
+            $scope.selectedExpense = expense;
+        }
+        function createPaymentRequest(newPayment, expenseId){
+            newPayment.expenseId = expenseId;
+            PaymentRequestsService
+                .createPaymentRequest(newPayment)
+                .then(function(response){
+                    $scope.newPayment = null;
+                    setScopeExpenses()
+                });
+        }
+
 
         function setScopeExpenses(){
             EventsService
@@ -72,11 +88,29 @@
                 ExpensesService
                     .findExpenseById(expensesId[e])
                     .then(function(response){
-                        expenses.push(response.data);
+                        var expense = response.data;
+                        expense.paymentRequestUsers = getPaymentRequestUsers(expense.paymentRequestId);
+                        expenses.push(expense);
                     });
             }
 
             return expenses;
+        }
+
+        function getPaymentRequestUsers(ids){
+            console.log(ids);
+            var payerUsers = [];
+            for(i in ids){
+                PaymentRequestsService
+                    .findPaymentRequestById(ids[i])
+                    .then(function(response){
+                        if(response.data){
+                            console.log("found userL " + JSON.stringify(response.data));
+                            payerUsers.push(response.data.payerUsername);
+                        }
+                    })
+            }
+            return payerUsers;
         }
     }
 
