@@ -11,9 +11,16 @@ module.exports = function(app, eventModel) {
 
 
     function createEvent(req, res){
-        console.log("Create event");
-        var event = eventModel.createEvent(req.body);
-        res.json(event);
+        var event = req.body;
+        eventModel.createEvent(event)
+            .then(
+                function(event){
+                    res.json(event);
+                },
+                function(err){
+                    res.status (400).send(err);
+                }
+            );
     }
 
     function getEvents(req, res){
@@ -28,37 +35,81 @@ module.exports = function(app, eventModel) {
 
     function getEventById(req, res){
         var eventId = req.query.eventId;
-        console.log("Get event by id:" + eventId);
-        var event = eventModel.findEventById(eventId);
-
-        res.json(event);
+        eventModel.findEventById(eventId)
+            .then(
+                function(event){
+                    res.json(event);
+                },
+                function(err){
+                    console.log(err);
+                    res.status (400).send(err);
+                }
+            );
     }
 
     function getEventsByAdminId(req, res){
         var adminId = req.query.adminId;
-        console.log("Get event by admin id:" + adminId);
-        var events = eventModel.findEventsByAdminId(adminId);
 
-        res.json(events);
+        eventModel.findEventsByAdminId(adminId)
+            .then(
+                function(events){
+                    res.json(events);
+                },
+                function(err){
+                    console.log(err);
+                    res.status (400).send(err);
+                }
+            );
     }
 
     function getAllEvents(req, res){
-        console.log("Get all events");
-        var events = eventModel.findAllEvents();
-
-        res.json(events);
+        eventModel
+            .findAllEvents()
+            .then(
+                function(events){
+                    res.json(events);
+                },
+                function(err){
+                    console.log(err);
+                    res.status (400).send(err);
+                }
+            );
     }
 
     function updateEventById(req, res){
-        var event = eventModel.updateEvent(req.params.eventId, req.params.event);
+        var event = req.params.event;
+        var eventId =  req.params.eventId;
 
-        res.json(event);
+        eventModel
+            .updateEvent(eventId, event)
+            .then (
+                function (event) {
+                    return eventModel.findAllEvents();
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            )
+            .then(
+                function(events){
+                    res.json(events);
+                },
+                function(err){
+                    res.status(400).send(err);
+                }
+            );
     }
 
     function deleteEventById(req, res){
-        eventModel.deleteEventById(req.params.eventId);
-        var events = eventModel.findAllEvents();
-
-        res.json(events);
-    }
+        eventModel
+                .deleteEventById(req.params.eventId)
+                .then(
+                    function (event) {
+                        return eventModel.findAllEvents();
+                    },
+                    function (err) {
+                        res.status(400).send(err);
+                    }
+                );
+    };
 };
