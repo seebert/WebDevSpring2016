@@ -11,7 +11,7 @@ module.exports = function (mongoose) {
         description: String,
         amountOwed: Number,
         payeeUsername: String,
-        paymentRequestId: [String]
+        paymentRequestId: [mongoose.Schema.Types.ObjectId]
     }, {collection: 'expense'});
     return ExpenseSchema;
 };

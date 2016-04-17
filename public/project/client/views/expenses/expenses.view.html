@@ -6,14 +6,14 @@
             <tr>
                 <th><span class="caret"></span> Title</th>
                 <th><span class="caret"></span> Description</th>
-                <th><span class="caret"></span> Payee Id</th>
+                <th><span class="caret"></span> Payee Username</th>
                 <th><span class="caret"></span> Payment Request Ids</th>
                 <th><span class="caret"></span></th>
             </tr>
             <tr>
                 <td><input ng-model="expense.title" type="text" class="form-control" id="title" placeholder="Title"></td>
                 <td><input ng-model="expense.description" type="text" class="form-control" id="description" placeholder="Description"></td>
-                <td><input ng-model="expense.payeeId" type="number" class="form-control" id="payeeId" placeholder="Id"></td>
+                <td><input ng-model="expense.payeeUsername" type="number" class="form-control" id="payeeId" placeholder="Username"></td>
                 <td><input ng-model="expense.paymentRequestIds" type="text" class="form-control" id="paymentRequestId" placeholder="Payment Ids"></td>
                 <td class="edit-links">
                     <button ng-click="addExpense()" class="btn btn-default">
@@ -29,7 +29,7 @@
             <tr ng-repeat="e in expenses">
                 <td>{{e.title}}</td>
                 <td>{{e.description}}</td>
-                <td>{{e.payeeId}}</td>
+                <td>{{e.payeeUsername}}</td>
                 <td>{{e.paymentRequestIds}}</td>
                 <td class="edit-links">
                     <button ng-click="deleteExpense($index)" class="btn btn-default">

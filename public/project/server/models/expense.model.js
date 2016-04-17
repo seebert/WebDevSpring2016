@@ -1,7 +1,6 @@
 /**
  * Created by Tiffanys on 3/23/16.
  */
-var q = require("q");
 module.exports = function(mongoose, eventModel) {
     var ExpenseSchema = require("./expense.schema.server.js")(mongoose);
     var Expense = mongoose.model("Expense", ExpenseSchema);
@@ -13,10 +12,16 @@ module.exports = function(mongoose, eventModel) {
         findExpenseById: findExpenseById,
         findExpensesByEventId : findExpensesByEventId,
         updateExpense: updateExpense,
-        deleteExpenseById : deleteExpenseById
+        deleteExpenseById : deleteExpenseById,
+        getMongooseModel: getMongooseModel
     };
 
     return api;
+
+
+    function getMongooseModel(){
+        return Expense;
+    }
 
     function createExpense(expense) {
         return Expense.create(expense);
