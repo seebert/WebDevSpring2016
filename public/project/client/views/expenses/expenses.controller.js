@@ -19,7 +19,7 @@
             {   _id: $scope.expense._id,
                 title: $scope.expense.title,
                 description: $scope.expense.description,
-                payeeId: $scope.expense.payeeId,
+                payeeUsername: $scope.expense.payeeUsername,
                 paymentRequestIds: parsePayments($scope.expense.paymentRequestIds)
             };
 
@@ -47,7 +47,7 @@
                 _id: $scope.expense._id,
                 title: $scope.expense.title,
                 description: $scope.expense.description,
-                payeeId: $scope.expense.payeeId,
+                payeeUsername: $scope.expense.payeeUsername,
                 paymentRequestIds: parsePayments($scope.expense.paymentRequestIds)
             };
 
@@ -72,7 +72,7 @@
             var localExpense = {
                 title: selectExpense.title,
                 description: selectExpense.description,
-                payeeId: selectExpense.payeeId,
+                payeeUsername: selectExpense.payeeUsername,
                 paymentRequestIds: selectExpense.paymentRequestIds,
                 _id : selectExpense._id
             };

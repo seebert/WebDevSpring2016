@@ -47,10 +47,10 @@
         setScopeExpenses();
 
         function createExpense(newExpense){
+            newExpense.eventId = eventId;
             ExpensesService
-                .createExpense(eventId, newExpense)
+                .createExpense(newExpense)
                 .then(function(response){
-                    console.log("createExpense() > " + JSON.stringify(response.data));
                     $scope.newExpense = null;
                     setScopeExpenses()
                 });

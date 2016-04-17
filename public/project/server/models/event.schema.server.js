@@ -9,7 +9,7 @@ module.exports = function (mongoose) {
         title : String,
         description: String,
         adminId: mongoose.Schema.Types.ObjectId,
-        expensesId: [String]
+        expenses: [mongoose.Schema.Types.ObjectId]
     }, {collection: 'event'});
     return EventSchema;
 };

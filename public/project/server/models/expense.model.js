@@ -1,9 +1,12 @@
 /**
  * Created by Tiffanys on 3/23/16.
  */
-var mock = require("./expense.mock.json");
-var mockEvents = require("./event.mock.json");
-module.exports = function(app, db) {
+var q = require("q");
+module.exports = function(mongoose, eventModel) {
+    var ExpenseSchema = require("./expense.schema.server.js")(mongoose);
+    var Expense = mongoose.model("Expense", ExpenseSchema);
+
+    var Event = eventModel.getMongooseModel();
     var api = {
         createExpense: createExpense,
         findAllExpenses: findAllExpenses,
@@ -15,81 +18,64 @@ module.exports = function(app, db) {
 
     return api;
 
-    function createExpense(eventId, expense) {
-        var expense = {
-            title: expense.title,
-            description: expense.description,
-            payeeId: expense.payeeId,
-            paymentRequestIds: expense.paymentRequestIds,
-            _id : (new Date).getTime()
-        };
-        mock.push(expense);
-        addExpenseToEvent(expense._id, eventId);
-        return expense;
-    }
-
-    function addExpenseToEvent(expenseId, eventId){
-        for (var event in mockEvents) {
-            if (mockEvents[event]._id == eventId) {
-                if(mockEvents[event].expenses){
-                    mockEvents[event].expenses.push(expenseId);
-                }else{
-                    mockEvents[event].expenses = [expenseId];
-                }
-                break;
-            }
-        }
+    function createExpense(expense) {
+        return Expense.create(expense);
     }
 
     function findAllExpenses(){
-        return mock;
+        return Expense.find();
     }
 
     function findExpenseById(id){
-        for (var e in mock) {
-            if (mock[e]._id == id) {
-                return mock[e];
-            }
-        }
+        return Expense.findById(id);
     }
 
     function findExpensesByEventId(eventId){
-        var expenseIds = [];
-        var expenses = [];
-        for (var event in mockEvents) {
-            if (mockEvents[event]._id == eventId) {
-                expenseIds = mock[event].expenses;
-                break;
-            }
-        }
-
-        for (var e in expenseIds) {
-            expenses.push(findExpenseById(expenseIds[e]));
-        }
-
-        return expenses;
+        return Event.findById(eventId)
+            .then(function(event){
+                var expenses = [];
+                for(var id in event.expenses){
+                    expenses.push(findExpenseById(id));
+                }
+                return expenses;
+            });
     }
 
 
-    function updateExpense(expenseId, expense) {
-        for (var e in mock) {
-            if (mock[e]._id == expenseId) {
-                mock[e].title = expense.title;
-                mock[e].description = expense.description;
-                mock[e].payeeId = expense.payeeId;
-                mock[e].paymentRequestIds = expense.paymentRequestIds;
-                return mock[e];
-            }
-        }
-        return null;
+    function updateExpense(expenseId, expenseObj) {
+        return Expense
+            .findOneAndUpdate (
+                {_id: expenseId},
+                {$set: expenseObj});
+
+        return Expense
+            .findById(expenseId)
+            .then(function(expense){
+
+                if(expenseObj.title)
+                    expense.title = expenseObj.title;
+
+                if(expenseObj.description)
+                    expense.description = expenseObj.description;
+
+                if(expenseObj.amountOwed)
+                    expense.amountOwed = expenseObj.amountOwed;
+
+                if(expenseObj.eventId)
+                    expense.eventId = expenseObj.eventId;
+
+                if(expenseObj.payeeUsername)
+                    expense.payeeUsername = expenseObj.payeeUsername;
+
+                if(expenseObj.paymentRequestId)
+                    expense.paymentRequestId = expenseObj.paymentRequestId;
+
+                return form.save();
+            });
+
     }
 
     function deleteExpenseById(expenseId) {
-        for (var e in mock) {
-            if (mock[e]._id == expenseId) {
-                mock.splice(e, 1);
-            }
-        }
-        return mock;
+        return Expense.remove({_id: expenseId});
     }
 };
