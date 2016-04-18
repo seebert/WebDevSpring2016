@@ -4,9 +4,9 @@
             <h2 class="page-header">Alerts ({{alerts.length}})</h2>
             <div ng-repeat="a in alerts track by $index">
                 <span class="glyphicon glyphicon-exclamation-sign"></span>
-                Payee [id={{a.payeeId}}] has requested a payment from Payer [id={{a.payerId}}] for event [id:{{a.eventId}}] <br>
+                {{a.payTo}} has requested ${{a.amountOwed}} for {{a.eventTitle}} > {{a.expenseTitle}} <br>
             </div>
-            <a class="row" href="#alerts">See all > </a>
+            <a class="row" href="#payments">See all > </a>
             <br>
             <h2 class="page-header">
                 Live Events ({{events.length}})

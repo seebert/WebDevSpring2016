@@ -6,17 +6,23 @@
         .module("PaymentApp")
         .controller("OverviewController", OverviewController);
 
-    function OverviewController($scope, $location, EventsService, AlertsService, UserService){
+    function OverviewController($scope, $location, EventsService, PaymentRequestsService, UserService){
         $scope.createEvent = createEvent;
         $scope.go = go;
         var currentUser = UserService.getCurrentUser();
         setScopeEvents();
 
-        AlertsService
-            .findAlertsByPayeeId(currentUser._id)
+        PaymentRequestsService
+            .findPaymentRequestByUsername(currentUser.username)
             .then(function(response){
                 $scope.alerts = response.data;
             });
+
+        /*AlertsService
+            .findAlertsByPayeeId(currentUser._id)
+            .then(function(response){
+                $scope.alerts = response.data;
+            });*/
 
 
         function setScopeEvents(){
