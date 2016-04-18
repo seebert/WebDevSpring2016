@@ -9,7 +9,7 @@
             <div class="progress">
                 <div id='progressbar' class="progress-bar pull-right" role="progressbar" style="width: {{e.amountPaid}}%;">
                 </div>
-                <label class = "pull-right" for="progressbar">$0.00/{{e.amountOwed}}</label>
+                <label class = "pull-right" for="progressbar">${{e.amountPaid}}/{{e.amountOwed}}</label>
             </div>
 
             <h4>{{e.title}}</h4>
@@ -21,8 +21,8 @@
             </p>
             <div ng-show="!e.paymentsRequested">
                 <p> Send payment request(s) to:
-                    <button class="btn btn-default" ng-repeat="user in e.paymentRequestUsers track by $index" >
-                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span> {{user}}
+                    <button class="btn btn-default" ng-repeat="request in e.paymentRequests track by $index" >
+                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span> {{request.payerUsername}}
                     </button>
                     <button class="btn btn-info" ng-click="selectExpense(e)" data-toggle="modal" data-target="#addPaymentRequest">
                         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
@@ -36,17 +36,17 @@
 
             <div ng-show="e.paymentsRequested">
                 <p> Payment(s) completed by:
-                    <div ng-repeat="user in e.paymentRequestUsers track by $index" >
-                        <button ng-show="user.paymentCompleted" class="btn btn-default">
-                            <span class="glyphicon glyphicon-user" aria-hidden="true"></span> {{user}}
+                    <div ng-repeat="request in e.paymentRequests track by $index" >
+                        <button ng-show="request.paymentCompleted" class="btn btn-default">
+                            <span class="glyphicon glyphicon-user" aria-hidden="true"></span> {{request.payerUsername}}
                         </button>
                     </div>
                 </p>
 
                 <p> Payment(s) pending from:
-                <div ng-repeat="user in e.paymentRequestUsers track by $index" >
-                    <button ng-show="!user.paymentCompleted" class="btn btn-default" ng-repeat="user in e.paymentRequestUsers track by $index" >
-                            <span class="glyphicon glyphicon-user" aria-hidden="true"></span> {{user}}
+                <div ng-repeat="request in e.paymentRequests track by $index" >
+                    <button ng-show="!request.paymentCompleted" class="btn btn-default" >
+                            <span class="glyphicon glyphicon-user" aria-hidden="true"></span> {{request.payerUsername}}
                     </button>
                 </div>
                 </p>

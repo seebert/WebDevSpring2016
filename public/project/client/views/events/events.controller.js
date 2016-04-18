@@ -39,7 +39,7 @@
 
     }
 
-    function EventDetailsController($scope, $routeParams, EventsService, ExpensesService, PaymentRequestsService){
+    function EventDetailsController($scope, $q, $routeParams, EventsService, ExpensesService, PaymentRequestsService){
         $scope.createExpense = createExpense;
         $scope.createPaymentRequest = createPaymentRequest;
         $scope.updateEvent = updateEvent;
@@ -132,10 +132,21 @@
                     .findExpenseById(expensesId[e])
                     .then(function(response){
                         var expense = response.data;
-                        var paymentInfo =  getPaymentRequestInformation(expense.paymentRequestId);
-                        expense.paymentRequestUsers = paymentInfo.payerUsers;
-                        expense.amountPaid = paymentInfo.amountPaid;
-                        expenses.push(expense);
+                        expense.amountPaid = 0;
+                        getPaymentRequestInformation(expense.paymentRequestId)
+                            .then(function(response){
+                                var paymentRequests = response;
+                                expense.paymentRequests = [];
+                                for(var request in paymentRequests){
+                                    if(paymentRequests[request]){
+                                        expense.paymentRequests.push(paymentRequests[request]);
+                                        if(paymentRequests[request].paymentCompleted){
+                                            expense.amountPaid += paymentRequests[request].amountOwed;
+                                        }
+                                    }
+                                }
+                                expenses.push(expense);
+                            });
                     });
             }
 
@@ -143,25 +154,24 @@
         }
 
         function getPaymentRequestInformation(ids){
-            var info = {};
-            var amountPaid = 0;
-            var payerUsers = [];
-            for(i in ids){
-                PaymentRequestsService
+            var promises = [];
+            var deferred = $q.defer();
+            for(var i in ids){
+                var promise = PaymentRequestsService
                     .findPaymentRequestById(ids[i])
                     .then(function(response){
-                        var paymentRequest = response.data;
-                        if(paymentRequest){
-                            payerUsers.push(paymentRequest.payerUsername);
-                            if(paymentRequest.paymentCompleted){
-                                amountPaid += paymentRequest.amountOwed;
-                            }
-                        }
-                    })
+                            return response.data;
+                    });
+                promises.push(promise);
             }
-            info.payerUsers = payerUsers;
-            info.amountPaid = amountPaid;
-            return info;
+
+            $q.all(promises)
+                .then(function(paymentRequests){
+                    deferred.resolve(paymentRequests);
+                });
+
+            return deferred.promise;
+
         }
     }
 
