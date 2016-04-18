@@ -45,7 +45,6 @@
         }
 
         function updatePaymentRequest(paymentRequestId, paymentRequest){
-            console.log(paymentRequest);
             return $http.put('/api/project/paymentRequest/'+paymentRequestId, paymentRequest);
         }
 

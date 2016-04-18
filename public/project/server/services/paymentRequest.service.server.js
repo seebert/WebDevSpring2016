@@ -76,9 +76,9 @@ module.exports = function(app, paymentRequestModel, expenseModel, eventModel) {
             .then(function(payments){
                 for(var i = 0; i < payments.length; i++){
                     localPayment = payments[i];
-                    return expenseModel.findExpenseById(localPayment.expenseId);
+                    if(localPayment.paymentRequested && !localPayment.paymentCompleted)
+                        return expenseModel.findExpenseById(localPayment.expenseId);
                 }
-                res.json(response);
             },
             function(err){
                 res.status (400).send(err);
@@ -162,7 +162,9 @@ module.exports = function(app, paymentRequestModel, expenseModel, eventModel) {
 
     function updatePaymentRequestById(req, res){
         var updatePayment = req.body;
-         paymentRequestModel
+        console.log(updatePayment);
+        console.log(req.params.requestId);
+        paymentRequestModel
              .updatePaymentRequest(req.params.requestId, updatePayment)
              .then(
                  function(payments){
