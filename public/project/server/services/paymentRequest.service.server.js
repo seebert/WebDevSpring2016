@@ -162,8 +162,6 @@ module.exports = function(app, paymentRequestModel, expenseModel, eventModel) {
 
     function updatePaymentRequestById(req, res){
         var updatePayment = req.body;
-        console.log(updatePayment);
-        console.log(req.params.requestId);
          paymentRequestModel
              .updatePaymentRequest(req.params.requestId, updatePayment)
              .then(
