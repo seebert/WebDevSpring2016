@@ -108,8 +108,11 @@ module.exports = function(app, expenseModel,eventModel) {
     }
 
     function updateExpenseById(req, res){
+        var expense = req.body;
+        console.log(expense);
+        console.log(req.params.expenseId);
         expenseModel
-            .updateExpense(req.params.expenseId, req.params.expense)
+            .updateExpense(req.params.expenseId, expense)
             .then(
                 function(expenses){
                     res.json(expenses);
