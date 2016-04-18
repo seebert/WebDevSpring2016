@@ -1,10 +1,11 @@
 <div class="container-fluid">
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
         <h1 class="page-header">Payment Requests</h1>
-        <div class="well" ng-repeat="p in paymentRequests track by $index">
-            <div> Payer Id:
+        <div class="well" ng-repeat="p in paymentRequests">
+            <h3 class="page-header">{{p.eventTitle}} > {{p.expenseTitle}}</h3>
+            <div> Pay To:
                 <button class="btn btn-default">
-                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span> {{p.payerId}}
+                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span> {{p.payTo}}
                 </button>
             </div>
             <br>

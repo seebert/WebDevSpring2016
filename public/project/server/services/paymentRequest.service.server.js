@@ -2,11 +2,12 @@
  * Created by Tiffanys on 3/23/16.
  */
 
-module.exports = function(app, paymentRequestModel, expenseModel) {
+module.exports = function(app, paymentRequestModel, expenseModel, eventModel) {
     app.post('/api/project/paymentRequest', createPaymentRequest);
     app.get('/api/project/paymentRequest', getPaymentRequests);
     app.get('/api/project/paymentRequest?requestId=:requestId', getPaymentRequestById);
     app.get('/api/project/paymentRequest?payerId=:payerId', getPaymentRequestsByPayerId);
+    app.get('/api/project/paymentRequest?payerUsername=:username', getPaymentRequestsByPayerUsername);
     app.get('/api/project/event/:eventId/expense/:expenseId/paymentRequest', getPaymentRequestsByExpense);
     app.put('/api/project/paymentRequest/:requestId', updatePaymentRequestById);
     app.delete('/api/project/paymentRequest/:requestId', deletePaymentRequestById);
@@ -49,7 +50,6 @@ module.exports = function(app, paymentRequestModel, expenseModel) {
                         );
                 },
                 function(err){
-                    console.log(err);
                     res.status (400).send(err);
                 });
     }
@@ -57,11 +57,52 @@ module.exports = function(app, paymentRequestModel, expenseModel) {
     function getPaymentRequests(req, res){
         if(req.query.requestId){
             getPaymentRequestById(req,res);
-        }else if(req.param.payerId) {
+        }else if(req.query.payerId) {
             getPaymentRequestsByPayerId(req,res);
+        }else if(req.query.payerUsername) {
+            getPaymentRequestsByPayerUsername(req,res);
         }else{
             getAllPaymentRequests(req, res);
         }
+    }
+
+    function getPaymentRequestsByPayerUsername(req, res){
+        var payerUsername = req.query.payerUsername;
+        var localPayment,  localExpense, localEvent;
+        var response = [];
+        paymentRequestModel
+            .findPaymentRequestByUsername(payerUsername)
+            .lean()
+            .then(function(payments){
+                for(var i = 0; i < payments.length; i++){
+                    localPayment = payments[i];
+                    return expenseModel.findExpenseById(localPayment.expenseId);
+                }
+                res.json(response);
+            },
+            function(err){
+                res.status (400).send(err);
+            })
+
+          .then(function(expense){
+                localExpense = expense;
+                return eventModel.findEventById(localExpense.eventId);
+            },
+                function(err){
+                    res.status (400).send(err);
+                })
+
+            .then(function(event) {
+                localEvent = event;
+                localPayment.payTo = localExpense.payeeUsername;
+                localPayment.expenseTitle = localExpense.title;
+                localPayment.eventTitle = localEvent.title;
+                response.push(localPayment);
+                res.json(response);
+            },
+                function(err){
+                    res.status (400).send(err);
+                });
     }
 
     function getPaymentRequestById(req, res){

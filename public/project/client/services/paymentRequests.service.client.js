@@ -13,6 +13,7 @@
             findPaymentRequestById: findPaymentRequestById,
             findPaymentRequestByPayerId: findPaymentRequestByPayerId,
             findPaymentRequestsByExpenseId : findPaymentRequestsByExpenseId,
+            findPaymentRequestByUsername: findPaymentRequestByUsername,
             updatePaymentRequest: updatePaymentRequest,
             deletePaymentRequestById : deletePaymentRequestById
         };
@@ -33,6 +34,11 @@
 
         function findPaymentRequestByPayerId(id){
             return $http.get('/api/project/paymentRequest?payerId='+id);
+        }
+
+        function findPaymentRequestByUsername(username){
+            console.log( $http.get('/api/project/paymentRequest?payerUsername='+username));
+            return $http.get('/api/project/paymentRequest?payerUsername='+username);
         }
 
         function findPaymentRequestsByExpenseId(eventId, expenseId){
