@@ -23,12 +23,10 @@
         }
 
         function createEvent(newEvent){
-            console.log("creating" + newEvent);
             newEvent.adminId = currentUser._id;
             EventsService
                 .createEvent(newEvent)
                 .then(function(response){
-                    console.log("createEvent() > " + JSON.stringify(response.data));
                     $scope.newEvent = null;
                     setScopeEvents()
                 });
@@ -47,6 +45,7 @@
         $scope.updateEvent = updateEvent;
         $scope.selectedEvent = selectedEvent;
         $scope.selectExpense = selectExpense;
+        $scope.requestPayments = requestPayments;
         var eventId = $routeParams.eventId;
         setScopeExpenses();
 
@@ -59,7 +58,6 @@
                     setScopeExpenses()
                 });
         }
-
 
         function selectedEvent(event){
             $scope.selectedEvent = event;
@@ -74,7 +72,6 @@
         function updateEvent(origEvent, updateEvent){
             origEvent.title = updateEvent.title;
             origEvent.description = updateEvent.description;
-            console.log(origEvent);
             EventsService
                 .updateEvent(origEvent._id, origEvent)
                 .then(function(response){
@@ -91,6 +88,30 @@
                     $scope.newPayment = null;
                     setScopeExpenses()
                 });
+        }
+
+        function requestPayments(expense){
+            $scope.selectedExpense = expense;
+            var requestAmount = expense.amountOwed / expense.paymentRequestId.length;
+            for(i in expense.paymentRequestId){
+                PaymentRequestsService
+                    .findPaymentRequestById(expense.paymentRequestId[i])
+                    .then(function(response){
+                        var paymentRequest = response.data;
+                        paymentRequest.amountOwed = requestAmount;
+                        paymentRequest.paymentRequested = true;
+                        PaymentRequestsService
+                            .updatePaymentRequest(paymentRequest._id, paymentRequest);
+                    })
+                    .then(function(){
+                        expense.paymentsRequested = true;
+                        ExpensesService
+                            .updateExpense(expense._id, expense)
+                            .then(function(){
+                                $scope.selectedExpense.message = "Payment requests sent!";
+                            });
+                    })
+            }
         }
 
 
@@ -111,7 +132,9 @@
                     .findExpenseById(expensesId[e])
                     .then(function(response){
                         var expense = response.data;
-                        expense.paymentRequestUsers = getPaymentRequestUsers(expense.paymentRequestId);
+                        var paymentInfo =  getPaymentRequestInformation(expense.paymentRequestId);
+                        expense.paymentRequestUsers = paymentInfo.payerUsers;
+                        expense.amountPaid = paymentInfo.amountPaid;
                         expenses.push(expense);
                     });
             }
@@ -119,20 +142,26 @@
             return expenses;
         }
 
-        function getPaymentRequestUsers(ids){
-            console.log(ids);
+        function getPaymentRequestInformation(ids){
+            var info = {};
+            var amountPaid = 0;
             var payerUsers = [];
             for(i in ids){
                 PaymentRequestsService
                     .findPaymentRequestById(ids[i])
                     .then(function(response){
-                        if(response.data){
-                            console.log("found userL " + JSON.stringify(response.data));
-                            payerUsers.push(response.data.payerUsername);
+                        var paymentRequest = response.data;
+                        if(paymentRequest){
+                            payerUsers.push(paymentRequest.payerUsername);
+                            if(paymentRequest.paymentCompleted){
+                                amountPaid += paymentRequest.amountOwed;
+                            }
                         }
                     })
             }
-            return payerUsers;
+            info.payerUsers = payerUsers;
+            info.amountPaid = amountPaid;
+            return info;
         }
     }
 
