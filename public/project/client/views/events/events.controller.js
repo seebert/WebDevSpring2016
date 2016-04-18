@@ -44,6 +44,8 @@
     function EventDetailsController($scope, $routeParams, EventsService, ExpensesService, PaymentRequestsService){
         $scope.createExpense = createExpense;
         $scope.createPaymentRequest = createPaymentRequest;
+        $scope.updateEvent = updateEvent;
+        $scope.selectedEvent = selectedEvent;
         $scope.selectExpense = selectExpense;
         var eventId = $routeParams.eventId;
         setScopeExpenses();
@@ -58,9 +60,29 @@
                 });
         }
 
+
+        function selectedEvent(event){
+            $scope.selectedEvent = event;
+            $scope.updateEvent.title = event.title;
+            $scope.updateEvent.description = event.description;
+        }
+
         function selectExpense(expense){
             $scope.selectedExpense = expense;
         }
+
+        function updateEvent(origEvent, updateEvent){
+            origEvent.title = updateEvent.title;
+            origEvent.description = updateEvent.description;
+            console.log(origEvent);
+            EventsService
+                .updateEvent(origEvent._id, origEvent)
+                .then(function(response){
+                    $scope.updateEvent = null;
+                    setScopeEvents()
+                });
+        }
+
         function createPaymentRequest(newPayment, expenseId){
             newPayment.expenseId = expenseId;
             PaymentRequestsService
@@ -121,6 +143,7 @@
         $scope.updateEvent = updateEvent;
         $scope.deleteEvent = deleteEvent;
         $scope.selectEvent = selectEvent;
+        $scope.selectedEvent = selectedEvent;
 
         function addEvent(){
             var newEvent =

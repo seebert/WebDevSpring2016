@@ -6,6 +6,12 @@
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add new expenses
         </button>
         <div class="well" ng-repeat="e in expenses track by $index">
+            <div class="progress">
+                <div id='progressbar' class="progress-bar pull-right" role="progressbar" style="width: {{e.amountOwed}}%;">
+                </div>
+                <label class = "pull-right" for="progressbar">$0.00/{{e.amountOwed}}</label>
+            </div>
+
             <h4>{{e.title}}</h4>
             <p> {{e.description}} </p>
             <p> Pay to:

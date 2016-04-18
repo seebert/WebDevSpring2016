@@ -47,6 +47,8 @@ module.exports = function(mongoose) {
 
 
     function updateEvent(eventId, event) {
+        console.log("id: " + eventId);
+        console.log("event" + event);
         return Event
             .findOneAndUpdate (
                 {_id: eventId},

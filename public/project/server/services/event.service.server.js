@@ -77,7 +77,7 @@ module.exports = function(app, eventModel) {
     }
 
     function updateEventById(req, res){
-        var event = req.params.event;
+        var event = req.body;
         var eventId =  req.params.eventId;
 
         eventModel

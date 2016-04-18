@@ -24,3 +24,31 @@
 
     </div>
 </div>
+
+
+<div ng-controller="OverviewController"  id="updateEvent" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Update event</h4>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <label for="title">Title:</label>
+                    <input ng-model="$parent.updateEvent.title" type="text" class="form-control" id="updateTitle" placeholder="ex. Ski Trip">
+                </div>
+
+                <div>
+                    <label for="description">Description:</label>
+                    <input ng-model="$parent.updateEvent.description" type="text" class="form-control" id="updateDescription" placeholder="ex. Trip to NH to hit the slopes!">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" ng-click="$parent.updateEvent($parent.selectedEvent, $parent.updateEvent)" data-dismiss="modal">Update</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
