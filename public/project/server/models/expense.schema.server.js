@@ -9,8 +9,9 @@ module.exports = function (mongoose) {
         eventId : String,
         title : String,
         description: String,
-        amountOwed: Number,
+        amountOwed: {type: Number, default : 0},
         payeeUsername: String,
+        paymentsRequested: {type: Boolean, default : 0},
         paymentRequestId: [mongoose.Schema.Types.ObjectId]
     }, {collection: 'expense'});
     return ExpenseSchema;

@@ -20,6 +20,11 @@
                     <label for="description">Payee Username:</label>
                     <input ng-model="$parent.newExpense.payeeUsername" type="text" class="form-control" id="payeeUsername" placeholder="ex. Alice">
                 </div>
+
+                <div>
+                    <label>Amount Spent:</label>
+                    <input ng-model="$parent.newExpense.amountOwed" type="text" class="form-control" id="amountOwed" placeholder="ex. 120">
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-success" ng-click="$parent.createExpense($parent.newExpense)" data-dismiss="modal">Create</button>
