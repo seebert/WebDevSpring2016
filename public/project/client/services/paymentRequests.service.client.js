@@ -37,7 +37,6 @@
         }
 
         function findPaymentRequestByUsername(username){
-            console.log( $http.get('/api/project/paymentRequest?payerUsername='+username));
             return $http.get('/api/project/paymentRequest?payerUsername='+username);
         }
 
@@ -45,7 +44,8 @@
             return $http.get('/api/project/event/'+eventId+'/expense/'+expenseId+'/paymentRequest');
         }
 
-        function updatePaymentRequest(paymentRequestId, paymentRequest) {
+        function updatePaymentRequest(paymentRequestId, paymentRequest){
+            console.log(paymentRequest);
             return $http.put('/api/project/paymentRequest/'+paymentRequestId, paymentRequest);
         }
 

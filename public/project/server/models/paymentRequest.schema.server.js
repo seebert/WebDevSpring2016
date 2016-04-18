@@ -6,7 +6,9 @@ module.exports = function (mongoose) {
     var PaymentRequestSchema = mongoose.Schema({
         expenseId: mongoose.Schema.Types.ObjectId,
         payerUsername : String,
-        amountOwed: Number
+        amountOwed: {type: Number, default : 0},
+        paymentRequested : {type: Boolean, default : 0},
+        paymentCompleted : {type: Boolean, default : 0}
     }, {collection: 'paymentRequest'});
     return PaymentRequestSchema;
 };

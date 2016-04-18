@@ -46,13 +46,13 @@ module.exports = function(mongoose, expenseModel) {
     }
 
     function updatePaymentRequest(paymentRequestId, paymentRequest) {
-        return Expense
+        return PaymentRequest
             .findOneAndUpdate (
                 {_id: paymentRequestId},
                 {$set: paymentRequest});
     }
 
     function deletePaymentRequestById(paymentRequestId) {
-        return Expense.remove({_id: paymentRequestId});
+        return PaymentRequest.remove({_id: paymentRequestId});
     }
 };
