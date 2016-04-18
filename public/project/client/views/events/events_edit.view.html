@@ -14,7 +14,7 @@
                 </button>
             </p>
             <p> Payment(s) pending from:
-                <button class="btn btn-default" ng-repeat="user in e.paymentRequestUsers" >
+                <button class="btn btn-default" ng-repeat="user in e.paymentRequestUsers track by $index" >
                     <span class="glyphicon glyphicon-user" aria-hidden="true"></span> {{user}}
                 </button>
                 <button class="btn btn-info" ng-click="selectExpense(e)" data-toggle="modal" data-target="#addPaymentRequest">
