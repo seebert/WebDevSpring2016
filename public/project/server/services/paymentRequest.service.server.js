@@ -1,7 +1,7 @@
 /**
  * Created by Tiffanys on 3/23/16.
  */
-
+var q = require("q");
 module.exports = function(app, paymentRequestModel, expenseModel, eventModel) {
     app.post('/api/project/paymentRequest', createPaymentRequest);
     app.get('/api/project/paymentRequest', getPaymentRequests);
@@ -66,43 +66,91 @@ module.exports = function(app, paymentRequestModel, expenseModel, eventModel) {
         }
     }
 
-    function getPaymentRequestsByPayerUsername(req, res){
-        var payerUsername = req.query.payerUsername;
+   function getPaymentRequestsByPayerUsername(req, res){
+       var payerUsername = req.query.payerUsername;
+       var localPayment,  localExpense, localEvent;
+       var response = [];
+       paymentRequestModel
+           .findPaymentRequestByUsername(payerUsername)
+           .lean()
+           .then(function(payments){
+                   for(var i = 0; i < payments.length; i++){
+                       localPayment = payments[i];
+                       if(localPayment.paymentRequested && !localPayment.paymentCompleted)
+                           return expenseModel.findExpenseById(localPayment.expenseId);
+                   }
+               },
+               function(err){
+                   res.status (400).send(err);
+               })
+
+           .then(function(expense){
+                   localExpense = expense;
+                   return eventModel.findEventById(localExpense.eventId);
+               },
+               function(err){
+                   res.status (400).send(err);
+               })
+
+           .then(function(event) {
+                   localEvent = event;
+                   localPayment.payTo = localExpense.payeeUsername;
+                   localPayment.expenseTitle = localExpense.title;
+                   localPayment.eventTitle = localEvent.title;
+                   response.push(localPayment);
+                   res.json(response);
+               },
+               function(err){
+                   res.status (400).send(err);
+               });
+        /*var payerUsername = req.query.payerUsername;
         var localPayment,  localExpense, localEvent;
-        var response = [];
+        var promises = [];
+        var deferred = q.defer();
         paymentRequestModel
             .findPaymentRequestByUsername(payerUsername)
             .lean()
             .then(function(payments){
+
                 for(var i = 0; i < payments.length; i++){
                     localPayment = payments[i];
-                    if(localPayment.paymentRequested && !localPayment.paymentCompleted)
-                        return expenseModel.findExpenseById(localPayment.expenseId);
+                    console.log("find payment.. " + JSON.stringify(localPayment));
+                    if(payments[i].paymentRequested && !localPayment.paymentCompleted){
+                        console.log("was requested & !completed.. " );
+                        var promise = expenseModel
+                            .findExpenseById(localPayment.expenseId)
+                            .then(function(expense){
+                                localExpense = expense;
+                                console.log("found expense.." +JSON.stringify(localExpense) );
+                                return eventModel.findEventById(localExpense.eventId)
+                            })
+                            .then(function(event) {
+                                localEvent = event;
+                                console.log("found event.." +JSON.stringify(event) );
+                                localPayment.payTo = localExpense.payeeUsername;
+                                localPayment.expenseTitle = localExpense.title;
+                                localPayment.eventTitle = localEvent.title;
+                                console.log("final prom.." +JSON.stringify(localPayment) );
+                                return localPayment;
+                                //deferred.resolve(localPayment);
+                                //return deferred.promise;
+                            });
+                        promises.push(promise);
+                    }
+                    console.log("prom? : " + JSON.stringify(promises));
                 }
-            },
-            function(err){
-                res.status (400).send(err);
-            })
 
-          .then(function(expense){
-                localExpense = expense;
-                return eventModel.findEventById(localExpense.eventId);
-            },
-                function(err){
+                q.all(promises)
+                    .then(function(paymentRequests){
+                        console.log("did we make it here? ");
+                        console.log(JSON.stringify(paymentRequests));
+                        res.json(paymentRequests);
+                    });
+            }, function(err){
                     res.status (400).send(err);
-                })
+            });
 
-            .then(function(event) {
-                localEvent = event;
-                localPayment.payTo = localExpense.payeeUsername;
-                localPayment.expenseTitle = localExpense.title;
-                localPayment.eventTitle = localEvent.title;
-                response.push(localPayment);
-                res.json(response);
-            },
-                function(err){
-                    res.status (400).send(err);
-                });
+        //return deferred.promise;*/
     }
 
     function getPaymentRequestById(req, res){
