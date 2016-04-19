@@ -23,7 +23,7 @@
             PaymentRequestsService
                     .updatePaymentRequest(payment._id, payment)
                     .then(function(){
-                       // $scope.selectedRequest.message = "Payment requests sent!";
+                       payment.message = "Payment request sent!";
                     });
         }
     }

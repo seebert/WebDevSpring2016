@@ -83,7 +83,6 @@ module.exports = function(app, paymentRequestModel, expenseModel, eventModel) {
                function(err){
                    res.status (400).send(err);
                })
-
            .then(function(expense){
                    localExpense = expense;
                    return eventModel.findEventById(localExpense.eventId);
@@ -103,6 +102,7 @@ module.exports = function(app, paymentRequestModel, expenseModel, eventModel) {
                function(err){
                    res.status (400).send(err);
                });
+
         /*var payerUsername = req.query.payerUsername;
         var localPayment,  localExpense, localEvent;
         var promises = [];
