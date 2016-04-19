@@ -99,7 +99,7 @@
                 .updateEvent(origEvent._id, origEvent)
                 .then(function(response){
                     $scope.updateEvent = null;
-                    setScopeEvents()
+                    setScopeLiveEvents()
                 });
         }
 
@@ -142,7 +142,9 @@
             EventsService
                 .updateEvent(event._id, event)
                 .then(function(response){
-                    $scope.updateEvent = null;
+                    $scope.message = "Event marked as complete!";
+                },function(err){
+                    $scope.error = "An error occured marking the event as complete";
                 });
         }
 

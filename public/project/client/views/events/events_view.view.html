@@ -7,7 +7,6 @@
         </ul>
         <br>
         <h3 class="page-header">{{event.title}}</h3>
-        <hr>
         <div class="well" ng-repeat="e in expenses track by $index">
             <label class = "pull-right" for="progressbar">${{e.amountPaid}}/{{e.amountOwed}}</label>
             <div class="progress">

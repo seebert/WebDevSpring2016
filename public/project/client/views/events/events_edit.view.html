@@ -8,13 +8,14 @@
         <br>
         <h3 class="page-header">{{event.title}}</h3>
         <div>
+            <div ng-show="message" class="alert alert-success" role="alert">{{message}}</div>
         <button class="btn btn-default" data-toggle="modal" data-target="#createExpense">
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add new expenses
         </button>
         <button class="btn btn-default" ng-click="completeEvent(event)"> Mark as Complete </button>
         </div>
         <hr>
-        <div class="well" ng-repeat="e in expenses track by $index">
+        <div class="well" ng-repeat="e in expenses track by $index | orderBy : e._id">
             <label class = "pull-right" for="progressbar">${{e.amountPaid}}/{{e.amountOwed}}</label>
             <div class="progress">
                 <div id='progressbar' class="progress-bar" role="progressbar" style="min-width: 1em; width: {{e.amountPaidPercent}}%; ">
@@ -62,8 +63,6 @@
                 </div>
                 </p>
             </div>
-
-            <div ng-show="e.message" class="alert alert-success" role="alert">{{e.message}}</div>
         </div>
     </div>
 </div>
