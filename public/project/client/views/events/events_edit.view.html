@@ -15,7 +15,7 @@
         <button class="btn btn-default" ng-click="completeEvent(event)"> Mark as Complete </button>
         </div>
         <hr>
-        <div class="well" ng-repeat="e in expenses track by $index | orderBy : e._id">
+        <div class="well" ng-repeat="e in expenses | orderBy:'title' track by $index ">
             <label class = "pull-right" for="progressbar">${{e.amountPaid}}/{{e.amountOwed}}</label>
             <div class="progress">
                 <div id='progressbar' class="progress-bar" role="progressbar" style="min-width: 1em; width: {{e.amountPaidPercent}}%; ">
