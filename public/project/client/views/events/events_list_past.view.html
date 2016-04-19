@@ -1,10 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<div class="container-fluid">
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <h1 class="page-header">My Events</h1>
+        <ul class="nav nav-tabs">
+            <li role="navigation"><a href="#/events">Live</a></li>
+            <li role="navigation" class="active"><a href="#/eventsPast">Past</a></li>
+        </ul>
+        <br>
+        <div class="well" ng-repeat="e in eventsPast track by $index">
+            <h4>{{e.title}}</h4>
+            <p>{{e.description}}</p>
+            <br>
+            <button ng-click="go('/eventsPast/' + e._id)" type="button" class="btn btn-default" aria-label="Left Align">
+                <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> View
+            </button>
+        </div>
+    </div>
+</div>
 
-</body>
-</html>
+<div ng-include src="'views/events/events_new.view.html'"></div>

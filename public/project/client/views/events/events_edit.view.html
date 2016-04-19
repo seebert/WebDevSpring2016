@@ -1,16 +1,26 @@
 <div class="container-fluid">
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-        <h1 class="page-header">{{event.title}}</h1>
+        <h1 class="page-header"> <span class="glyphicon glyphicon-triangle-left"></span> <a href="#/events">My Events</a></h1>
+        <ul class="nav nav-tabs">
+            <li role="navigation" class="active"><a href="#/events">Live</a></li>
+            <li role="navigation"><a href="#/eventsPast">Past</a></li>
+        </ul>
         <br>
+        <h3 class="page-header">{{event.title}}</h3>
+        <div>
         <button class="btn btn-default" data-toggle="modal" data-target="#createExpense">
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add new expenses
         </button>
+        <button class="btn btn-default" ng-click="completeEvent(event)"> Mark as Complete </button>
+        </div>
+        <hr>
         <div class="well" ng-repeat="e in expenses track by $index">
+            <label class = "pull-right" for="progressbar">${{e.amountPaid}}/{{e.amountOwed}}</label>
             <div class="progress">
-                <div id='progressbar' class="progress-bar pull-right" role="progressbar" style="width: {{e.amountPaid}}%;">
+                <div id='progressbar' class="progress-bar" role="progressbar" style="min-width: 1em; width: {{e.amountPaidPercent}}%; ">
                 </div>
-                <label class = "pull-right" for="progressbar">${{e.amountPaid}}/{{e.amountOwed}}</label>
             </div>
+
 
             <h4>{{e.title}}</h4>
             <p> {{e.description}} </p>
@@ -28,11 +38,12 @@
                         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                     </button>
                 </p>
-                <button class="btn btn-warning" ng-click="requestPayments(e)">
-                    <span class="glyphicon glyphicon-share-alt" aria-hidden="true">Request Payments</span>
+                <button class="btn btn-warning pull-right" ng-click="requestPayments(e)">
+                    <span class="glyphicon glyphicon-share-alt" aria-hidden="true"> Request Payments </span>
                 </button>
 
             </div>
+            <br>
 
             <div ng-show="e.paymentsRequested">
                 <p> Payment(s) completed by:

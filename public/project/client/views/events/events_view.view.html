@@ -1,10 +1,43 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<div class="container-fluid">
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <h1 class="page-header"> <span class="glyphicon glyphicon-triangle-left"></span> <a href="#/events">My Events</a></h1>
+        <ul class="nav nav-tabs">
+            <li role="navigation"><a href="#/events">Live</a></li>
+            <li role="navigation" class="active"><a href="#/eventsPast">Past</a></li>
+        </ul>
+        <br>
+        <h3 class="page-header">{{event.title}}</h3>
+        <hr>
+        <div class="well" ng-repeat="e in expenses track by $index">
+            <label class = "pull-right" for="progressbar">${{e.amountPaid}}/{{e.amountOwed}}</label>
+            <div class="progress">
+                <div id='progressbar' class="progress-bar" role="progressbar" style="min-width: 1em; width: {{e.amountPaidPercent}}%; ">
+                </div>
+            </div>
 
-</body>
-</html>
+
+            <h4>{{e.title}}</h4>
+            <p> {{e.description}} </p>
+            <p> Paid to:
+                <button class="btn btn-default">
+                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span> {{e.payeeUsername}}
+                </button>
+            </p>
+
+                <p> Payment(s) completed by:
+                <div ng-repeat="request in e.paymentRequests track by $index" >
+                    <button ng-show="request.paymentCompleted" class="btn btn-default">
+                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span> {{request.payerUsername}}
+                    </button>
+                </div>
+                </p>
+
+            <div ng-show="e.message" class="alert alert-success" role="alert">{{e.message}}</div>
+        </div>
+    </div>
+</div>
+
+
+<div ng-include src="'views/expenses/expenses_new.view.html'"></div>
+<div ng-include src="'views/payment/payment_new.view.html'"></div>
+

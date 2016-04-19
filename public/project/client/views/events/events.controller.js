@@ -12,13 +12,36 @@
         $scope.createEvent = createEvent;
         $scope.go = go;
         var currentUser = UserService.getCurrentUser();
-        setScopeEvents();
+        setScopeLiveEvents();
+        setScopePastEvents();
 
-        function setScopeEvents(){
+        function setScopeLiveEvents(){
             EventsService
                 .findEventsByAdminId(currentUser._id)
                 .then(function(response){
-                    $scope.events = response.data;
+                    var events = response.data;
+                    var eventsLive = [];
+                    for(var e in events){
+                        if(!events[e].completed) {
+                            eventsLive.push(events[e]);
+                        }
+                        $scope.eventsLive = eventsLive;
+                    }
+                });
+        }
+
+        function setScopePastEvents(){
+            EventsService
+                .findEventsByAdminId(currentUser._id)
+                .then(function(response){
+                    var events = response.data;
+                    var eventsPast = [];
+                    for(var e in events){
+                        if(events[e].completed) {
+                            eventsPast.push(events[e]);
+                        }
+                        $scope.eventsPast = eventsPast;
+                    }
                 });
         }
 
@@ -28,12 +51,11 @@
                 .createEvent(newEvent)
                 .then(function(response){
                     $scope.newEvent = null;
-                    setScopeEvents()
+                    setScopeLiveEvents();
                 });
         }
 
         function go( path ) {
-            console.log( path);
             $location.path( path );
         }
 
@@ -46,6 +68,7 @@
         $scope.selectedEvent = selectedEvent;
         $scope.selectExpense = selectExpense;
         $scope.requestPayments = requestPayments;
+        $scope.completeEvent = completeEvent;
         var eventId = $routeParams.eventId;
         setScopeExpenses();
 
@@ -92,7 +115,7 @@
 
         function requestPayments(expense){
             $scope.selectedExpense = expense;
-            var requestAmount = expense.amountOwed / expense.paymentRequestId.length;
+            var requestAmount = (expense.amountOwed / expense.paymentRequestId.length).toFixed(2);
             for(i in expense.paymentRequestId){
                 PaymentRequestsService
                     .findPaymentRequestById(expense.paymentRequestId[i])
@@ -114,6 +137,14 @@
             }
         }
 
+        function completeEvent(event){
+            event.completed = true;
+            EventsService
+                .updateEvent(event._id, event)
+                .then(function(response){
+                    $scope.updateEvent = null;
+                });
+        }
 
         function setScopeExpenses(){
             EventsService
@@ -145,6 +176,7 @@
                                         }
                                     }
                                 }
+                                expense.amountPaidPercent = parseInt(expense.amountPaid/expense.amountOwed * 100);
                                 expenses.push(expense);
                             });
                     });

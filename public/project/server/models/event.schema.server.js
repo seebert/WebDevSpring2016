@@ -8,6 +8,7 @@ module.exports = function (mongoose) {
     var EventSchema = mongoose.Schema({
         title : String,
         description: String,
+        completed: {type: Boolean, default : 0},
         adminId: mongoose.Schema.Types.ObjectId,
         expenses: [mongoose.Schema.Types.ObjectId]
     }, {collection: 'event'});

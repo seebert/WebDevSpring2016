@@ -3,13 +3,13 @@
         <h1 class="page-header">My Events</h1>
         <ul class="nav nav-tabs">
             <li role="navigation" class="active"><a href="#/events">Live</a></li>
-            <li role="navigation"><a href="#/events">Past</a></li>
+            <li role="navigation"><a href="#/eventsPast">Past</a></li>
         </ul>
         <br>
         <button class="btn btn-default" data-toggle="modal" data-target="#createEvent">
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Create new events
         </button>
-        <div class="well" ng-repeat="e in events">
+        <div class="well" ng-repeat="e in eventsLive track by $index">
             <h4>{{e.title}}</h4>
             <p>{{e.description}}</p>
             <br>
