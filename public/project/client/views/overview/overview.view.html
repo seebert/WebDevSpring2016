@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <h2 class="page-header">Alerts ({{alerts.length}})</h2>
+            <h2 class="page-header">Pending Payments ({{alerts.length}})</h2>
             <div ng-repeat="a in alerts track by $index">
                 <span class="glyphicon glyphicon-exclamation-sign"></span>
                 {{a.payTo}} has requested ${{a.amountOwed}} for {{a.eventTitle}} > {{a.expenseTitle}} <br>

@@ -25,14 +25,18 @@
             EventsService
                 .findEventsByAdminId(currentUser._id)
                 .then(function(response){
-                    $scope.events = response.data;
+                    var events = response.data;
+                    var eventsLive = [];
+                    for(var e in events){
+                        if(!events[e].completed) {
+                            eventsLive.push(events[e]);
+                        }
+                        $scope.events = eventsLive;
+                    }
                 });
         }
 
-
         function selectedEvent(event){
-
-            console.log("event:" + event);
             $scope.selectedEvent = event;
             $scope.updateEvent.title = event.title;
             $scope.updateEvent.description = event.description;
